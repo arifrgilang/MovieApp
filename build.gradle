@@ -1,10 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+    ext {
+        // The following are only a few examples of the types of properties you can define.
+        compileSdkVersion = 28
+        // You can also use this to specify versions for dependencies. Having consistent
+        // versions between modules can avoid behavior conflicts.
+        supportLibVersion = "28.0.0"
+        gson_version = '2.8.5'
+        retrofit_version = '2.4.0'
+        okhttp_version = '3.9.0'
+    }
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
@@ -19,6 +29,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 }
 

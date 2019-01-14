@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:layout_marginTop="@dimen/separator"
-    android:layout_marginBottom="@dimen/separator">
+    android:layout_margin="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
