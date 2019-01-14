@@ -1,4 +1,4 @@
-package com.rz.movieapp.view;
+package com.rz.movieapp.view.main;
 
 import android.util.Log;
 
@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainPresenter {
+class MainPresenter {
     private final String TAG = "MainPresenter";
 
     private MainView view;
@@ -22,7 +22,7 @@ public class MainPresenter {
         this.service = service;
     }
 
-    public void onDestroyComposite(){
+    void onDestroyComposite(){
         disposable.dispose();
     }
 

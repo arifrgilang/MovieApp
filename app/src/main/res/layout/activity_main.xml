@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    tools:context=".view.main.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_search"
@@ -47,4 +47,22 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
+    <RelativeLayout
+        android:id="@+id/no_result_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@android:color/white"
+        android:layout_above="@id/search_layout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorAccent"
+            android:text="@string/no_result_found"/>
+
+    </RelativeLayout>
 </RelativeLayout>

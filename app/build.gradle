@@ -26,6 +26,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation "com.android.support:cardview-v7:$supportLibVersion"
+    // Other
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
     // Gson
     implementation "com.google.code.gson:gson:$gson_version"
     // OkHttp

@@ -1,6 +1,7 @@
 package com.rz.movieapp.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rz.movieapp.R;
 import com.rz.movieapp.model.MovieObject;
+import com.rz.movieapp.view.detail.DetailMovieActivity;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,16 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
                 .load(url)
                 .apply(new RequestOptions().override(72, 72))
                 .into(listViewHolder.rvImg);
+
+        final String movieId = mList.get(i).getId();
+        listViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailMovieActivity.class);
+                intent.putExtra(DetailMovieActivity.MOVIE_ID, movieId);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
