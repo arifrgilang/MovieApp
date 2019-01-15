@@ -15,18 +15,20 @@ import com.rz.movieapp.api.MovieDBClient;
 import com.rz.movieapp.api.ServiceGenerator;
 import com.rz.movieapp.model.MovieObject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailMovieActivity extends AppCompatActivity implements DetailMovieView {
 
     final public static String MOVIE_ID = "ID";
-    String id;
 
-    RelativeLayout mLoadingView;
-    CircularImageView mImg;
-    TextView mTitle;
-    TextView mReleaseDate;
-    TextView mRating;
-    TextView mLanguage;
-    TextView mOverview;
+    @BindView(R.id.detail_loading) RelativeLayout mLoadingView;
+    @BindView(R.id.detail_img) CircularImageView mImg;
+    @BindView(R.id.detail_title) TextView mTitle;
+    @BindView(R.id.detail_release_date) TextView mReleaseDate;
+    @BindView(R.id.detail_rating) TextView mRating;
+    @BindView(R.id.detail_language) TextView mLanguage;
+    @BindView(R.id.detail_overview) TextView mOverview;
 
     DetailMoviePresenter mPresenter;
 
@@ -34,26 +36,17 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
-        id = getIntent().getStringExtra(MOVIE_ID);
+        String id = getIntent().getStringExtra(MOVIE_ID);
 
-        initView();
+        ButterKnife.bind(this);
         initPresenter();
+
         mPresenter.getMovieDetail(id);
     }
 
     private void initPresenter() {
         MovieDBClient client = ServiceGenerator.createService(MovieDBClient.class);
         mPresenter = new DetailMoviePresenter(this, client);
-    }
-
-    private void initView() {
-        mLoadingView = findViewById(R.id.detail_loading);
-        mImg = findViewById(R.id.detail_img);
-        mTitle = findViewById(R.id.detail_title);
-        mReleaseDate = findViewById(R.id.detail_release_date);
-        mRating = findViewById(R.id.detail_rating);
-        mLanguage = findViewById(R.id.detail_language);
-        mOverview = findViewById(R.id.detail_overview);
     }
 
     @Override
@@ -63,17 +56,16 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
 
     @Override
     public void setView(MovieObject results) {
-        mTitle.setText(results.getOriginal_title());
         String releaseDate = "Release Date: " + results.getRelease_date();
+        String url = "https://image.tmdb.org/t/p/w342" + results.getPoster_path();
+
+        mTitle.setText(results.getOriginal_title());
         mReleaseDate.setText(releaseDate);
         mRating.setText(results.getVote_average());
         mLanguage.setText(results.getOriginal_language().toUpperCase());
         mOverview.setText(results.getOverview());
 
-        String url = "https://image.tmdb.org/t/p/w342" + results.getPoster_path();
-        Glide.with(this)
-                .load(url)
-                .into(mImg);
+        Glide.with(this).load(url).into(mImg);
     }
 
     @Override

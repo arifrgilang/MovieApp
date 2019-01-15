@@ -18,7 +18,10 @@ import com.rz.movieapp.view.detail.DetailMovieActivity;
 
 import java.util.ArrayList;
 
-public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ListViewHolder> {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MovieListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     private ArrayList<MovieObject> mList;
     private Context context;
 
@@ -38,15 +41,16 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder listViewHolder, int i) {
         String title = mList.get(i).getOriginal_title();
+        String url = "https://image.tmdb.org/t/p/w154" + mList.get(i).getPoster_path();
+        final String movieId = mList.get(i).getId();
+
         listViewHolder.rvText.setText(title);
 
-        String url = "https://image.tmdb.org/t/p/w154" + mList.get(i).getPoster_path();
         Glide.with(context)
                 .load(url)
                 .apply(new RequestOptions().override(72, 72))
                 .into(listViewHolder.rvImg);
 
-        final String movieId = mList.get(i).getId();
         listViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,32 +65,4 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
     public int getItemCount() {
         return mList.size();
     }
-
-    class ListViewHolder extends RecyclerView.ViewHolder {
-        ImageView rvImg;
-        TextView rvText;
-
-        ListViewHolder(@NonNull View itemView) {
-            super(itemView);
-            rvImg = itemView.findViewById(R.id.card_img);
-            rvText = itemView.findViewById(R.id.card_title);
-        }
-    }
-
-//    public Context getContext() {
-//        return context;
-//    }
-//
-//    public void setContext(Context context) {
-//        this.context = context;
-//    }
-//
-//    public ArrayList<MovieObject> getmList() {
-//        return mList;
-//    }
-//
-//    public void setmList(ArrayList<MovieObject> mList) {
-//        this.mList = mList;
-//    }
-
 }

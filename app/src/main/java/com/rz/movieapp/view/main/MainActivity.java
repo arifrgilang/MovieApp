@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,13 +19,17 @@ import com.rz.movieapp.utils.MovieListAdapter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, MainView{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    RelativeLayout mNotFoundLayout;
-    ProgressBar mLoadingView;
-    RecyclerView mMovieRv;
-    EditText mSearchEditText;
-    ImageButton mSearchButton;
+public class MainActivity extends AppCompatActivity implements MainView{
+
+    @BindView(R.id.no_result_search) RelativeLayout mNotFoundLayout;
+    @BindView(R.id.pb_search) ProgressBar mLoadingView;
+    @BindView(R.id.rv_search) RecyclerView mMovieRv;
+    @BindView(R.id.et_search) EditText mSearchEditText;
+    @BindView(R.id.bt_search) ImageButton mSearchButton;
 
     MainPresenter mPresenter;
     MovieListAdapter mRvAdapter;
@@ -36,11 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
+
+        ButterKnife.bind(this);
         initPresenter();
         initAdapter();
-        mPresenter.getListMovie("a");
 
+        requestData("a");
     }
 
     private void initAdapter() {
@@ -54,28 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPresenter = new MainPresenter(this, client);
     }
 
-    private void initView() {
-        mNotFoundLayout = findViewById(R.id.no_result_search);
-        mLoadingView = findViewById(R.id.pb_search);
-        mMovieRv = findViewById(R.id.rv_search);
-        mSearchEditText = findViewById(R.id.et_search);
-        mSearchButton = findViewById(R.id.bt_search);
-        mSearchButton.setOnClickListener(this);
-        mLoadingView.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.bt_search :
-                if(!TextUtils.isEmpty(mSearchEditText.getText().toString())){
-                    Log.d("button", "button clicked");
-                    mLoadingView.setVisibility(View.INVISIBLE);
-                    String query = mSearchEditText.getText().toString();
-                    mPresenter.getListMovie(query);
-                }
-                break;
-        }
+    private void requestData(String query) {
+        mPresenter.getListMovie(query);
     }
 
     @Override
@@ -84,11 +68,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void showNotFound(Boolean condition) {
+        mNotFoundLayout.setVisibility(condition ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
     public void setView(ArrayList<MovieObject> results) {
         mList.clear();
         mList.addAll(results);
         mRvAdapter.notifyDataSetChanged();
-        mNotFoundLayout.setVisibility(results.size() == 0 ? View.VISIBLE : View.INVISIBLE);
+
+        showNotFound(results.size() == 0);
+    }
+
+    @OnClick(R.id.bt_search)
+    public void onClick(){
+        if(!TextUtils.isEmpty(mSearchEditText.getText().toString())){
+            showNotFound(false);
+
+            String query = mSearchEditText.getText().toString();
+            requestData(query);
+        }
     }
 
     @Override

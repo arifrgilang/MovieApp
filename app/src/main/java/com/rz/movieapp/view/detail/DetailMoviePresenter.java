@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class DetailMoviePresenter {
+class DetailMoviePresenter {
 
     private final String TAG = "DetailMoviePresenter";
 

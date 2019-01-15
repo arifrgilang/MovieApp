@@ -6,5 +6,6 @@ import java.util.ArrayList;
 
 public interface MainView {
     void showLoading(Boolean condition);
+    void showNotFound(Boolean condition);
     void setView(ArrayList<MovieObject> results);
 }
