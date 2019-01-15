@@ -3,17 +3,17 @@ package com.rz.movieapp.view.detail;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.rz.movieapp.R;
 import com.rz.movieapp.api.MovieDBClient;
-import com.rz.movieapp.api.ServiceGenerator;
+import com.rz.movieapp.di.App;
 import com.rz.movieapp.model.MovieObject;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +30,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     @BindView(R.id.detail_language) TextView mLanguage;
     @BindView(R.id.detail_overview) TextView mOverview;
 
+    @Inject MovieDBClient movieDbclient;
+
     DetailMoviePresenter mPresenter;
 
     @Override
@@ -45,8 +47,9 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     }
 
     private void initPresenter() {
-        MovieDBClient client = ServiceGenerator.createService(MovieDBClient.class);
-        mPresenter = new DetailMoviePresenter(this, client);
+        //dagger inject
+        App.app().appComponent().inject(this);
+        mPresenter = new DetailMoviePresenter(this, movieDbclient);
     }
 
     @Override

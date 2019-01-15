@@ -13,11 +13,13 @@ import android.widget.RelativeLayout;
 
 import com.rz.movieapp.R;
 import com.rz.movieapp.api.MovieDBClient;
-import com.rz.movieapp.api.ServiceGenerator;
+import com.rz.movieapp.di.App;
 import com.rz.movieapp.model.MovieObject;
 import com.rz.movieapp.utils.MovieListAdapter;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @BindView(R.id.rv_search) RecyclerView mMovieRv;
     @BindView(R.id.et_search) EditText mSearchEditText;
     @BindView(R.id.bt_search) ImageButton mSearchButton;
+
+    @Inject MovieDBClient movieDbclient;
 
     MainPresenter mPresenter;
     MovieListAdapter mRvAdapter;
@@ -54,8 +58,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
     }
 
     private void initPresenter() {
-        MovieDBClient client = ServiceGenerator.createService(MovieDBClient.class);
-        mPresenter = new MainPresenter(this, client);
+        //dagger inject
+        App.app().appComponent().inject(this);
+        mPresenter = new MainPresenter(this, movieDbclient);
     }
 
     private void requestData(String query) {
