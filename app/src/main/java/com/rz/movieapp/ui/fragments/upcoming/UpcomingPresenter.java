@@ -29,7 +29,7 @@ public class UpcomingPresenter implements UpcomingContract.Presenter{
     @Override
     public void getUpcomingMovies() {
         view.showLoading(true);
-        disposable = service.getNowPlayingMovies()
+        disposable = service.getUpcomingMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<MovieResponse>() {

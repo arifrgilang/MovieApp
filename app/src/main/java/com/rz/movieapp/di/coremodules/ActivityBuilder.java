@@ -6,8 +6,8 @@ import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingModule;
 import com.rz.movieapp.ui.activities.home.HomeActivity;
 import com.rz.movieapp.ui.activities.home.HomeModule;
-import com.rz.movieapp.ui.activities.main.MainActivity;
-import com.rz.movieapp.ui.activities.main.MainModule;
+import com.rz.movieapp.ui.fragments.search.SearchFragment;
+import com.rz.movieapp.ui.fragments.search.SearchModule;
 import com.rz.movieapp.ui.fragments.upcoming.UpcomingFragment;
 import com.rz.movieapp.ui.fragments.upcoming.UpcomingModule;
 
@@ -17,9 +17,6 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 abstract class ActivityBuilder {
     //Activity
-    @ContributesAndroidInjector(modules = MainModule.class)
-    abstract MainActivity bindMainActivity();
-
     @ContributesAndroidInjector(modules = DetailMovieModule.class)
     abstract DetailMovieActivity bindDetailMovieActivity();
 
@@ -32,4 +29,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = UpcomingModule.class)
     abstract UpcomingFragment bindUpcomingFragment();
+
+    @ContributesAndroidInjector(modules = SearchModule.class)
+    abstract SearchFragment bindSearchFragment();
 }

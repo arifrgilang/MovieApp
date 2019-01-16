@@ -1,4 +1,4 @@
-package com.rz.movieapp.ui.activities.main;
+package com.rz.movieapp.ui.fragments.search;
 
 import android.util.Log;
 
@@ -12,14 +12,15 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainPresenter implements MainContract.Presenter{
-    private final String TAG = "MainPresenter";
+public class SearchPresenter implements SearchContract.Presenter{
+    private final String TAG = "SearchPresenter";
 
-    private MainContract.View view;
+    private SearchContract.View view;
     private MovieDBClient service;
     private Disposable disposable;
 
-    @Inject MainPresenter(MainContract.View view, MovieDBClient service){
+    @Inject
+    SearchPresenter(SearchContract.View view, MovieDBClient service){
         this.view = view;
         this.service = service;
     }

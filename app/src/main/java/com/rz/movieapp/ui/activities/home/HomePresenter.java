@@ -1,6 +1,7 @@
 package com.rz.movieapp.ui.activities.home;
 
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
+import com.rz.movieapp.ui.fragments.search.SearchFragment;
 import com.rz.movieapp.ui.fragments.upcoming.UpcomingFragment;
 
 import javax.inject.Inject;
@@ -25,6 +26,9 @@ public class HomePresenter implements HomeContract.Presenter{
                 break;
             case F_UPCOMING:
                 view.setFragment(new UpcomingFragment());
+                break;
+            case F_SEARCH:
+                view.setFragment(new SearchFragment());
                 break;
         }
     }

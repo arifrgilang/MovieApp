@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.home.HomeActivity">
+        <activity
+            android:name=".ui.activities.home.HomeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,17 +25,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.main.MainActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".ui.activities.detail.DetailMovieActivity"
-            android:parentActivityName=".ui.activities.main.MainActivity"
+            android:parentActivityName=".ui.activities.home.HomeActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activities.main.MainActivity" />
+                android:value=".ui.activities.home.HomeActivity" />
         </activity>
     </application>
 

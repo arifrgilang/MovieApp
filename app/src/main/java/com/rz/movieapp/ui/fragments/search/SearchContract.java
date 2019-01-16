@@ -1,10 +1,10 @@
-package com.rz.movieapp.ui.activities.main;
+package com.rz.movieapp.ui.fragments.search;
 
 import com.rz.movieapp.data.model.MovieObject;
 
 import java.util.ArrayList;
 
-public interface MainContract {
+public interface SearchContract {
     interface View{
         void showLoading(Boolean condition);
         void showNotFound(Boolean condition);
