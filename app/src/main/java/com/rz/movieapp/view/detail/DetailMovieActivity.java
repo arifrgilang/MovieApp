@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 
 public class DetailMovieActivity extends AppCompatActivity implements DetailMovieContract.View {
 
@@ -31,25 +32,18 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     @BindView(R.id.detail_overview) TextView mOverview;
 
     @Inject MovieDBClient movieDbclient;
-
-    DetailMovieContract.Presenter mPresenter;
+    @Inject DetailMoviePresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
         String id = getIntent().getStringExtra(MOVIE_ID);
 
         ButterKnife.bind(this);
-        initPresenter();
 
         mPresenter.getMovieDetail(id);
-    }
-
-    private void initPresenter() {
-        //dagger inject
-        App.app().appComponent().inject(this);
-        mPresenter = new DetailMoviePresenter(this, movieDbclient);
     }
 
     @Override

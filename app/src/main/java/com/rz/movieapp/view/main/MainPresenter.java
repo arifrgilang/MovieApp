@@ -12,14 +12,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-class MainPresenter implements MainContract.Presenter{
+public class MainPresenter implements MainContract.Presenter{
     private final String TAG = "MainPresenter";
 
     private MainContract.View view;
     private MovieDBClient service;
     private Disposable disposable;
 
-    MainPresenter(MainContract.View view, MovieDBClient service){
+    public MainPresenter(MainContract.View view, MovieDBClient service){
         this.view = view;
         this.service = service;
     }

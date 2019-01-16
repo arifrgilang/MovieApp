@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-class DetailMoviePresenter implements DetailMovieContract.Presenter{
+public class DetailMoviePresenter implements DetailMovieContract.Presenter{
 
     private final String TAG = "DetailMoviePresenter";
 
@@ -18,7 +18,7 @@ class DetailMoviePresenter implements DetailMovieContract.Presenter{
     private MovieDBClient service;
     private Disposable disposable;
 
-    DetailMoviePresenter(DetailMovieContract.View view, MovieDBClient service){
+    public DetailMoviePresenter(DetailMovieContract.View view, MovieDBClient service){
         this.view = view;
         this.service = service;
     }

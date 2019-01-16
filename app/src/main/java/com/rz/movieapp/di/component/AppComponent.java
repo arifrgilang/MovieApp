@@ -1,16 +1,31 @@
 package com.rz.movieapp.di.component;
 
+import android.app.Application;
+
+import com.rz.movieapp.di.App;
+import com.rz.movieapp.di.modules.ActivityBuilderModule;
 import com.rz.movieapp.di.modules.NetworkModule;
-import com.rz.movieapp.view.detail.DetailMovieActivity;
-import com.rz.movieapp.view.main.MainActivity;
 
 import javax.inject.Singleton;
 
+import dagger.BindsInstance;
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
 
 @Singleton
-@Component(modules = {NetworkModule.class})
+@Component(modules = {
+        AndroidInjectionModule.class,
+        ActivityBuilderModule.class,
+        NetworkModule.class})
 public interface AppComponent {
-    void inject(MainActivity mainActivity);
-    void inject(DetailMovieActivity detailMovieActivity);
+
+    @Component.Builder
+    interface Builder{
+        @BindsInstance
+        Builder application(Application application);
+
+        AppComponent build();
+    }
+
+    void inject(App app);
 }

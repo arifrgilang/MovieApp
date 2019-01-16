@@ -12,6 +12,7 @@ buildscript {
         okhttp_version = '3.9.0'
         butterknife_version = '8.8.1'
         dagger2_version = '2.19'
+        glide_version = '4.8.0'
     }
     repositories {
         google()

@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.android.AndroidInjection;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
@@ -34,18 +35,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @BindView(R.id.bt_search) ImageButton mSearchButton;
 
     @Inject MovieDBClient movieDbclient;
-    MainContract.Presenter mPresenter;
+    @Inject MainPresenter mPresenter;
 
     MovieListAdapter mRvAdapter;
     ArrayList<MovieObject> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        initPresenter();
         initAdapter();
 
         requestData("a");
@@ -55,13 +56,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mRvAdapter = new MovieListAdapter(mList, this);
         mMovieRv.setLayoutManager(new LinearLayoutManager(this));
         mMovieRv.setAdapter(mRvAdapter);
-    }
-
-    @Override
-    public void initPresenter() {
-        //dagger inject
-        App.app().appComponent().inject(this);
-        mPresenter = new MainPresenter(this, movieDbclient);
     }
 
     private void requestData(String query) {
