@@ -14,7 +14,7 @@ public class MainModule {
     }
 
     @Provides
-    MainPresenter provideMainPresenter(MainContract.View mainView, MovieDBClient service){
+    MainContract.Presenter provideMainPresenter(MainContract.View mainView, MovieDBClient service){
         return new MainPresenter(mainView, service) ;
     }
 }

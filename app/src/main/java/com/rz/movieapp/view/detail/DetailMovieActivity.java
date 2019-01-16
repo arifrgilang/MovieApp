@@ -28,7 +28,7 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
     @BindView(R.id.detail_language) TextView mLanguage;
     @BindView(R.id.detail_overview) TextView mOverview;
 
-    @Inject DetailMoviePresenter mPresenter;
+    @Inject DetailMovieContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

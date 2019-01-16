@@ -31,7 +31,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
     @BindView(R.id.et_search) EditText mSearchEditText;
     @BindView(R.id.bt_search) ImageButton mSearchButton;
 
-    @Inject MainPresenter mPresenter;
+    @Inject MainContract.Presenter mPresenter;
 
     MovieListAdapter mRvAdapter;
     ArrayList<MovieObject> mList = new ArrayList<>();

@@ -14,7 +14,7 @@ public class DetailMovieModule {
     }
 
     @Provides
-    DetailMoviePresenter provideDetailMoviePresenter(DetailMovieContract.View view, MovieDBClient service){
+    DetailMovieContract.Presenter provideDetailMoviePresenter(DetailMovieContract.View view, MovieDBClient service){
         return new DetailMoviePresenter(view, service);
     }
 }
