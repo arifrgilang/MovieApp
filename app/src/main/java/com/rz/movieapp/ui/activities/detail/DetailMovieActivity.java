@@ -48,7 +48,7 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
 
     @Override
     public void setView(MovieObject results) {
-        String releaseDate = "Release Date: " + results.getRelease_date();
+        String releaseDate = getString(R.string.release_date) + " : " + results.getRelease_date();
         String url = "https://image.tmdb.org/t/p/w342" + results.getPoster_path();
 
         mTitle.setText(results.getOriginal_title());

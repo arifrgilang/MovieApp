@@ -1,11 +1,15 @@
 package com.rz.movieapp.ui.activities.home;
 
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.rz.movieapp.R;
 
@@ -29,6 +33,21 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
         setActionBarTitle(getString(R.string.now_playing));
         initBottomNav();
         presenter.changeFragment(HomePresenter.F_NOW_PLAYING);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.setting_language, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.setting_button){
+            Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(mIntent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
