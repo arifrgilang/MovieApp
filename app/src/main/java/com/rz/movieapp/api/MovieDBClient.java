@@ -1,9 +1,14 @@
 package com.rz.movieapp.api;
 
 import com.rz.movieapp.BuildConfig;
+import com.rz.movieapp.di.othermodules.NetworkModule;
 import com.rz.movieapp.model.MovieObject;
 import com.rz.movieapp.model.MovieResponse;
 
+import javax.inject.Singleton;
+
+import dagger.Component;
+import dagger.Subcomponent;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

@@ -1,6 +1,5 @@
 package com.rz.movieapp.view.main;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.rz.movieapp.R;
-import com.rz.movieapp.api.MovieDBClient;
-import com.rz.movieapp.di.App;
 import com.rz.movieapp.model.MovieObject;
 import com.rz.movieapp.utils.MovieListAdapter;
 
@@ -24,9 +21,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
+public class MainActivity extends DaggerAppCompatActivity implements MainContract.View {
 
     @BindView(R.id.no_result_search) RelativeLayout mNotFoundLayout;
     @BindView(R.id.pb_search) ProgressBar mLoadingView;
@@ -34,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @BindView(R.id.et_search) EditText mSearchEditText;
     @BindView(R.id.bt_search) ImageButton mSearchButton;
 
-    @Inject MovieDBClient movieDbclient;
     @Inject MainPresenter mPresenter;
 
     MovieListAdapter mRvAdapter;
@@ -42,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

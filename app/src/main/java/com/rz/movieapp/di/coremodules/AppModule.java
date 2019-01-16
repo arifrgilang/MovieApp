@@ -1,4 +1,4 @@
-package com.rz.movieapp.di.modules;
+package com.rz.movieapp.di.coremodules;
 
 import android.app.Application;
 import android.content.Context;

@@ -19,7 +19,7 @@ public class MainPresenter implements MainContract.Presenter{
     private MovieDBClient service;
     private Disposable disposable;
 
-    public MainPresenter(MainContract.View view, MovieDBClient service){
+    @Inject MainPresenter(MainContract.View view, MovieDBClient service){
         this.view = view;
         this.service = service;
     }

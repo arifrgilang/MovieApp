@@ -5,6 +5,8 @@ import android.util.Log;
 import com.rz.movieapp.api.MovieDBClient;
 import com.rz.movieapp.model.MovieObject;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -18,7 +20,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter{
     private MovieDBClient service;
     private Disposable disposable;
 
-    public DetailMoviePresenter(DetailMovieContract.View view, MovieDBClient service){
+    @Inject DetailMoviePresenter(DetailMovieContract.View view, MovieDBClient service){
         this.view = view;
         this.service = service;
     }

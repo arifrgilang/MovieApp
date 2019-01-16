@@ -1,4 +1,4 @@
-package com.rz.movieapp.di.modules;
+package com.rz.movieapp.di.othermodules;
 
 import com.rz.movieapp.BuildConfig;
 import com.rz.movieapp.api.MovieDBClient;
