@@ -1,14 +1,9 @@
-package com.rz.movieapp.api;
+package com.rz.movieapp.data.api;
 
 import com.rz.movieapp.BuildConfig;
-import com.rz.movieapp.di.othermodules.NetworkModule;
-import com.rz.movieapp.model.MovieObject;
-import com.rz.movieapp.model.MovieResponse;
+import com.rz.movieapp.data.model.MovieObject;
+import com.rz.movieapp.data.model.MovieResponse;
 
-import javax.inject.Singleton;
-
-import dagger.Component;
-import dagger.Subcomponent;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -21,4 +16,10 @@ public interface MovieDBClient {
 
     @GET("movie/{id}?api_key=" + BuildConfig.API_KEY + "&language=en-US")
     Observable<MovieObject> getMovieDetail(@Path("id") String id);
+
+    @GET("movie/now_playing?api_key=" + BuildConfig.API_KEY + "&language=en-US")
+    Observable<MovieResponse> getNowPlayingMovies();
+
+    @GET("movie/upcoming?api_key=" + BuildConfig.API_KEY + "&language=en-US")
+    Observable<MovieResponse> getUpcomingMovies();
 }

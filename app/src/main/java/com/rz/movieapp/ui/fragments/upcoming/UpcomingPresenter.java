@@ -1,9 +1,10 @@
-package com.rz.movieapp.view.detail;
+package com.rz.movieapp.ui.fragments.upcoming;
 
 import android.util.Log;
 
-import com.rz.movieapp.api.MovieDBClient;
-import com.rz.movieapp.model.MovieObject;
+import com.rz.movieapp.data.api.MovieDBClient;
+import com.rz.movieapp.data.model.MovieResponse;
+import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingContract;
 
 import javax.inject.Inject;
 
@@ -12,36 +13,31 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class DetailMoviePresenter implements DetailMovieContract.Presenter{
+public class UpcomingPresenter implements UpcomingContract.Presenter{
+    private final String TAG = "UpcomingPresenter";
 
-    private final String TAG = "DetailMoviePresenter";
-
-    private DetailMovieContract.View view;
+    private UpcomingContract.View view;
     private MovieDBClient service;
     private Disposable disposable;
 
-    @Inject DetailMoviePresenter(DetailMovieContract.View view, MovieDBClient service){
+    @Inject
+    UpcomingPresenter(UpcomingContract.View view, MovieDBClient service){
         this.view = view;
         this.service = service;
     }
 
     @Override
-    public void onDestroyComposite(){
-        disposable.dispose();
-    }
-
-    @Override
-    public void getMovieDetail(String id){
+    public void getUpcomingMovies() {
         view.showLoading(true);
-        disposable = service.getMovieDetail(id)
+        disposable = service.getNowPlayingMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<MovieObject>() {
+                .subscribeWith(new DisposableObserver<MovieResponse>() {
                     @Override
-                    public void onNext(MovieObject movieResponse) {
+                    public void onNext(MovieResponse movieResponse) {
                         Log.d(TAG, "onNext");
                         view.showLoading(false);
-                        view.setView(movieResponse);
+                        view.setView(movieResponse.getResults());
                     }
 
                     @Override
@@ -56,5 +52,10 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter{
                         Log.d(TAG, "onComplete");
                     }
                 });
+    }
+
+    @Override
+    public void onDestroyComposite() {
+        disposable.dispose();
     }
 }

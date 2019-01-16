@@ -1,6 +1,6 @@
-package com.rz.movieapp.view.detail;
+package com.rz.movieapp.ui.activities.detail;
 
-import com.rz.movieapp.model.MovieObject;
+import com.rz.movieapp.data.model.MovieObject;
 
 public interface DetailMovieContract {
     interface View{

@@ -1,4 +1,4 @@
-package com.rz.movieapp.view.main;
+package com.rz.movieapp.ui.activities.main;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.rz.movieapp.R;
-import com.rz.movieapp.model.MovieObject;
+import com.rz.movieapp.data.model.MovieObject;
 import com.rz.movieapp.utils.MovieListAdapter;
 
 import java.util.ArrayList;
@@ -34,7 +34,6 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
     @Inject MainContract.Presenter mPresenter;
 
     MovieListAdapter mRvAdapter;
-    ArrayList<MovieObject> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
     }
 
     private void initAdapter() {
-        mRvAdapter = new MovieListAdapter(mList, this);
+        mRvAdapter = new MovieListAdapter(this);
         mMovieRv.setLayoutManager(new LinearLayoutManager(this));
         mMovieRv.setAdapter(mRvAdapter);
     }
@@ -69,10 +68,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
 
     @Override
     public void setView(ArrayList<MovieObject> results) {
-        mList.clear();
-        mList.addAll(results);
-        mRvAdapter.notifyDataSetChanged();
-
+        mRvAdapter.setData(results);
         showNotFound(results.size() == 0);
     }
 

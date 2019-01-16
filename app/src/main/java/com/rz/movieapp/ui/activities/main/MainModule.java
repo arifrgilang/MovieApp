@@ -1,6 +1,6 @@
-package com.rz.movieapp.view.main;
+package com.rz.movieapp.ui.activities.main;
 
-import com.rz.movieapp.api.MovieDBClient;
+import com.rz.movieapp.data.api.MovieDBClient;
 
 import dagger.Module;
 import dagger.Provides;

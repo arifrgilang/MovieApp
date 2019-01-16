@@ -1,4 +1,4 @@
-package com.rz.movieapp.view.detail;
+package com.rz.movieapp.ui.activities.detail;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.rz.movieapp.R;
-import com.rz.movieapp.model.MovieObject;
+import com.rz.movieapp.data.model.MovieObject;
 
 import javax.inject.Inject;
 

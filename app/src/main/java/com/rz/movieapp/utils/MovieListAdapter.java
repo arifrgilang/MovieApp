@@ -7,27 +7,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rz.movieapp.R;
-import com.rz.movieapp.model.MovieObject;
-import com.rz.movieapp.view.detail.DetailMovieActivity;
+import com.rz.movieapp.data.model.MovieObject;
+import com.rz.movieapp.ui.activities.detail.DetailMovieActivity;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MovieListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     private ArrayList<MovieObject> mList;
     private Context context;
 
-    public MovieListAdapter(ArrayList<MovieObject> list, Context ctx){
-        this.mList = list;
-        this.context = ctx;
+    public MovieListAdapter(Context context){
+        this.mList = new ArrayList<>();
+        this.context = context;
     }
 
     @NonNull
@@ -64,5 +59,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+    public void setData(ArrayList<MovieObject> data) {
+        this.mList.addAll(data);
+        notifyDataSetChanged();
     }
 }

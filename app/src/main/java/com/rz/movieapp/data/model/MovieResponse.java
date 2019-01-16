@@ -1,4 +1,4 @@
-package com.rz.movieapp.model;
+package com.rz.movieapp.data.model;
 
 import com.google.gson.annotations.SerializedName;
 

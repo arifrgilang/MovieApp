@@ -1,9 +1,9 @@
-package com.rz.movieapp.view.main;
+package com.rz.movieapp.ui.activities.detail;
 
 import android.util.Log;
 
-import com.rz.movieapp.api.MovieDBClient;
-import com.rz.movieapp.model.MovieResponse;
+import com.rz.movieapp.data.api.MovieDBClient;
+import com.rz.movieapp.data.model.MovieObject;
 
 import javax.inject.Inject;
 
@@ -12,14 +12,15 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainPresenter implements MainContract.Presenter{
-    private final String TAG = "MainPresenter";
+public class DetailMoviePresenter implements DetailMovieContract.Presenter{
 
-    private MainContract.View view;
+    private final String TAG = "DetailMoviePresenter";
+
+    private DetailMovieContract.View view;
     private MovieDBClient service;
     private Disposable disposable;
 
-    @Inject MainPresenter(MainContract.View view, MovieDBClient service){
+    @Inject DetailMoviePresenter(DetailMovieContract.View view, MovieDBClient service){
         this.view = view;
         this.service = service;
     }
@@ -30,17 +31,17 @@ public class MainPresenter implements MainContract.Presenter{
     }
 
     @Override
-    public void getListMovie(String query){
+    public void getMovieDetail(String id){
         view.showLoading(true);
-        disposable = service.getListMovie(query)
+        disposable = service.getMovieDetail(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<MovieResponse>() {
+                .subscribeWith(new DisposableObserver<MovieObject>() {
                     @Override
-                    public void onNext(MovieResponse movieResponse) {
+                    public void onNext(MovieObject movieResponse) {
                         Log.d(TAG, "onNext");
                         view.showLoading(false);
-                        view.setView(movieResponse.getResults());
+                        view.setView(movieResponse);
                     }
 
                     @Override

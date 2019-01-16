@@ -1,6 +1,6 @@
-package com.rz.movieapp.view.main;
+package com.rz.movieapp.ui.activities.main;
 
-import com.rz.movieapp.model.MovieObject;
+import com.rz.movieapp.data.model.MovieObject;
 
 import java.util.ArrayList;
 

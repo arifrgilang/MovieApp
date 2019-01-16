@@ -1,7 +1,7 @@
 package com.rz.movieapp.di.othermodules;
 
 import com.rz.movieapp.BuildConfig;
-import com.rz.movieapp.api.MovieDBClient;
+import com.rz.movieapp.data.api.MovieDBClient;
 
 import java.util.concurrent.TimeUnit;
 
