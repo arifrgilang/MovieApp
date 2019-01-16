@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends AppCompatActivity implements MainContract.View {
 
     @BindView(R.id.no_result_search) RelativeLayout mNotFoundLayout;
     @BindView(R.id.pb_search) ProgressBar mLoadingView;
@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @BindView(R.id.bt_search) ImageButton mSearchButton;
 
     @Inject MovieDBClient movieDbclient;
+    MainContract.Presenter mPresenter;
 
-    MainPresenter mPresenter;
     MovieListAdapter mRvAdapter;
     ArrayList<MovieObject> mList = new ArrayList<>();
 
@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
         mMovieRv.setAdapter(mRvAdapter);
     }
 
-    private void initPresenter() {
+    @Override
+    public void initPresenter() {
         //dagger inject
         App.app().appComponent().inject(this);
         mPresenter = new MainPresenter(this, movieDbclient);

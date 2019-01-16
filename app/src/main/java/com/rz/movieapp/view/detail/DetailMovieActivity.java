@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailMovieActivity extends AppCompatActivity implements DetailMovieView {
+public class DetailMovieActivity extends AppCompatActivity implements DetailMovieContract.View {
 
     final public static String MOVIE_ID = "ID";
 
@@ -32,7 +32,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
 
     @Inject MovieDBClient movieDbclient;
 
-    DetailMoviePresenter mPresenter;
+    DetailMovieContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
