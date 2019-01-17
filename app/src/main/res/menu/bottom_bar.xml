@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_nowplaying"
+        android:orderInCategory="100"
+        android:title="@string/now_playing"
+        android:icon="@android:drawable/ic_media_play"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_upcoming"
+        android:orderInCategory="100"
+        android:title="@string/upcoming"
+        android:icon="@android:drawable/ic_menu_today"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_search"
+        android:orderInCategory="100"
+        android:title="@string/search_movie"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom"/>
+</menu>
