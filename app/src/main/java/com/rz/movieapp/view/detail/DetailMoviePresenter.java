@@ -10,24 +10,26 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-class DetailMoviePresenter {
+public class DetailMoviePresenter implements DetailMovieContract.Presenter{
 
     private final String TAG = "DetailMoviePresenter";
 
-    private DetailMovieView view;
+    private DetailMovieContract.View view;
     private MovieDBClient service;
     private Disposable disposable;
 
-    DetailMoviePresenter(DetailMovieView view, MovieDBClient service){
+    public DetailMoviePresenter(DetailMovieContract.View view, MovieDBClient service){
         this.view = view;
         this.service = service;
     }
 
-    void onDestroyComposite(){
+    @Override
+    public void onDestroyComposite(){
         disposable.dispose();
     }
 
-    void getMovieDetail(String id){
+    @Override
+    public void getMovieDetail(String id){
         view.showLoading(true);
         disposable = service.getMovieDetail(id)
                 .subscribeOn(Schedulers.io())

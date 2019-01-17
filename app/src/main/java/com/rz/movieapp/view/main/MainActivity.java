@@ -13,17 +13,20 @@ import android.widget.RelativeLayout;
 
 import com.rz.movieapp.R;
 import com.rz.movieapp.api.MovieDBClient;
-import com.rz.movieapp.api.ServiceGenerator;
+import com.rz.movieapp.di.App;
 import com.rz.movieapp.model.MovieObject;
 import com.rz.movieapp.utils.MovieListAdapter;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.android.AndroidInjection;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends AppCompatActivity implements MainContract.View {
 
     @BindView(R.id.no_result_search) RelativeLayout mNotFoundLayout;
     @BindView(R.id.pb_search) ProgressBar mLoadingView;
@@ -31,17 +34,19 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @BindView(R.id.et_search) EditText mSearchEditText;
     @BindView(R.id.bt_search) ImageButton mSearchButton;
 
-    MainPresenter mPresenter;
+    @Inject MovieDBClient movieDbclient;
+    @Inject MainPresenter mPresenter;
+
     MovieListAdapter mRvAdapter;
     ArrayList<MovieObject> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        initPresenter();
         initAdapter();
 
         requestData("a");
@@ -51,11 +56,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
         mRvAdapter = new MovieListAdapter(mList, this);
         mMovieRv.setLayoutManager(new LinearLayoutManager(this));
         mMovieRv.setAdapter(mRvAdapter);
-    }
-
-    private void initPresenter() {
-        MovieDBClient client = ServiceGenerator.createService(MovieDBClient.class);
-        mPresenter = new MainPresenter(this, client);
     }
 
     private void requestData(String query) {

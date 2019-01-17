@@ -3,22 +3,23 @@ package com.rz.movieapp.view.detail;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.rz.movieapp.R;
 import com.rz.movieapp.api.MovieDBClient;
-import com.rz.movieapp.api.ServiceGenerator;
+import com.rz.movieapp.di.App;
 import com.rz.movieapp.model.MovieObject;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 
-public class DetailMovieActivity extends AppCompatActivity implements DetailMovieView {
+public class DetailMovieActivity extends AppCompatActivity implements DetailMovieContract.View {
 
     final public static String MOVIE_ID = "ID";
 
@@ -30,23 +31,19 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     @BindView(R.id.detail_language) TextView mLanguage;
     @BindView(R.id.detail_overview) TextView mOverview;
 
-    DetailMoviePresenter mPresenter;
+    @Inject MovieDBClient movieDbclient;
+    @Inject DetailMoviePresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
         String id = getIntent().getStringExtra(MOVIE_ID);
 
         ButterKnife.bind(this);
-        initPresenter();
 
         mPresenter.getMovieDetail(id);
-    }
-
-    private void initPresenter() {
-        MovieDBClient client = ServiceGenerator.createService(MovieDBClient.class);
-        mPresenter = new DetailMoviePresenter(this, client);
     }
 
     @Override
