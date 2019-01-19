@@ -11,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -55,6 +58,7 @@ public class SearchFragment extends DaggerFragment implements SearchContract.Vie
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -108,6 +112,13 @@ public class SearchFragment extends DaggerFragment implements SearchContract.Vie
         } else {
             mSearchEditText.setError(getString(R.string.fill_query));
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        MenuItem searchBtn = menu.findItem(R.id.search_btn);
+        searchBtn.setVisible(true);
     }
 }
 

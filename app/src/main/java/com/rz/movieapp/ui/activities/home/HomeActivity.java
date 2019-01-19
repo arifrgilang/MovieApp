@@ -12,6 +12,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.rz.movieapp.R;
+import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
+import com.rz.movieapp.ui.fragments.search.SearchFragment;
+import com.rz.movieapp.ui.fragments.upcoming.UpcomingFragment;
 
 import javax.inject.Inject;
 
@@ -67,16 +70,22 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.menu_nowplaying:
-                        setActionBarTitle(getString(R.string.now_playing));
-                        presenter.changeFragment(HomePresenter.F_NOW_PLAYING);
+                        if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof NowPlayingFragment)){
+                            setActionBarTitle(getString(R.string.now_playing));
+                            presenter.changeFragment(HomePresenter.F_NOW_PLAYING);
+                        }
                         return true;
                     case R.id.menu_upcoming:
-                        setActionBarTitle(getString(R.string.upcoming));
-                        presenter.changeFragment(HomePresenter.F_UPCOMING);
+                        if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof UpcomingFragment)) {
+                            setActionBarTitle(getString(R.string.upcoming));
+                            presenter.changeFragment(HomePresenter.F_UPCOMING);
+                        }
                         return true;
                     case R.id.menu_search:
-                        setActionBarTitle(getString(R.string.search));
-                        presenter.changeFragment(HomePresenter.F_SEARCH);
+                        if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof SearchFragment)) {
+                            setActionBarTitle(getString(R.string.search));
+                            presenter.changeFragment(HomePresenter.F_SEARCH);
+                        }
                         return true;
                 }
                 return false;

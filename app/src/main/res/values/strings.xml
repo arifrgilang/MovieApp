@@ -15,4 +15,5 @@
     <string name="input_query">Input Query</string>
     <string name="fill_query">Fill Query!</string>
     <string name="release_date">Release Date </string>
+    <string name="setting">Setting</string>
 </resources>
