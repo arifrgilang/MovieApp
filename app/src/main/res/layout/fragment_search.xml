@@ -23,8 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/bt_search"
-            android:layout_marginStart="@dimen/separator"
-            android:layout_marginEnd="@dimen/separator"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/search_movie_title"
             android:inputType="text"
             style="@style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
             android:textColor="@color/textPrimary"/>
@@ -35,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/separator"
             android:layout_alignParentEnd="true"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:src="@android:drawable/ic_menu_search" />
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:src="@drawable/ic_search_white_24dp" />
     </RelativeLayout>
 
     <ProgressBar

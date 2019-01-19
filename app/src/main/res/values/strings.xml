@@ -16,4 +16,5 @@
     <string name="fill_query">Fill Query!</string>
     <string name="release_date">Release Date </string>
     <string name="setting">Setting</string>
+    <string name="search_movie_title">Search Movie Title . . .</string>
 </resources>
