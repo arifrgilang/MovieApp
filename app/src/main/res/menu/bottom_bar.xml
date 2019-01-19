@@ -5,18 +5,18 @@
         android:id="@+id/menu_nowplaying"
         android:orderInCategory="100"
         android:title="@string/now_playing"
-        android:icon="@android:drawable/ic_media_play"
+        android:icon="@drawable/ic_movie_white_24dp"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_upcoming"
         android:orderInCategory="100"
         android:title="@string/upcoming"
-        android:icon="@android:drawable/ic_menu_today"
+        android:icon="@drawable/ic_event_note_white_24dp"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_search"
         android:orderInCategory="100"
         android:title="@string/search_movie"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_search_white_24dp"
         app:showAsAction="ifRoom"/>
 </menu>

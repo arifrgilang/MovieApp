@@ -15,4 +15,6 @@
     <string name="input_query">Masukkan inputan</string>
     <string name="fill_query">Isi form!</string>
     <string name="release_date">Tanggal Rilis </string>
+    <string name="setting">Pengaturan</string>
+    <string name="search_movie_title">Cari Judul Film . . .</string>
 </resources>
