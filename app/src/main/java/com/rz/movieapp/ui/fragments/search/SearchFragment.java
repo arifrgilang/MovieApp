@@ -101,7 +101,6 @@ public class SearchFragment extends DaggerFragment implements SearchContract.Vie
     @Override
     public void setView(ArrayList<MovieObject> results) {
         mRvAdapter.setData(results);
-        showNotFound(results.size() == 0);
     }
 
     @OnClick(R.id.bt_search)

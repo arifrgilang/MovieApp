@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
 public class DbContract {
 
     public static final String AUTHORITY = "com.rz.movieapp";
-    public static final String SCHEME = "scheme";
+    public static final String SCHEME = "content";
 
     public static final class FavColumns implements BaseColumns{
         public static String TABLE_FAVORITE = "favorite";

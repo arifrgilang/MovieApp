@@ -7,12 +7,14 @@ import com.rz.movieapp.data.model.MovieResponse;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingContract;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
+@Singleton
 public class UpcomingPresenter implements UpcomingContract.Presenter{
     private final String TAG = "UpcomingPresenter";
 

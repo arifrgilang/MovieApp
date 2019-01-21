@@ -2,6 +2,8 @@ package com.rz.movieapp.di.coremodules;
 
 import com.rz.movieapp.ui.activities.detail.DetailMovieActivity;
 import com.rz.movieapp.ui.activities.detail.DetailMovieModule;
+import com.rz.movieapp.ui.fragments.favorite.FavoriteFragment;
+import com.rz.movieapp.ui.fragments.favorite.FavoriteModule;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingModule;
 import com.rz.movieapp.ui.activities.home.HomeActivity;
@@ -32,4 +34,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = SearchModule.class)
     abstract SearchFragment bindSearchFragment();
+
+    @ContributesAndroidInjector(modules = FavoriteModule.class)
+    abstract FavoriteFragment bindFavoriteFragment();
 }

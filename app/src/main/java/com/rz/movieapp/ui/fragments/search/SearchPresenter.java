@@ -6,12 +6,14 @@ import com.rz.movieapp.data.api.MovieDBClient;
 import com.rz.movieapp.data.model.MovieResponse;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
+@Singleton
 public class SearchPresenter implements SearchContract.Presenter{
     private final String TAG = "SearchPresenter";
 
@@ -42,6 +44,7 @@ public class SearchPresenter implements SearchContract.Presenter{
                         Log.d(TAG, "onNext");
                         view.showLoading(false);
                         view.setView(movieResponse.getResults());
+                        view.showNotFound(movieResponse.getResults().size() == 0);
                     }
 
                     @Override

@@ -17,4 +17,6 @@
     <string name="release_date">Release Date </string>
     <string name="setting">Setting</string>
     <string name="search_movie_title">Search Movie Title . . .</string>
+    <string name="favorite_movies">Favorite</string>
+    <string name="currently_no_data">Currently No Data</string>
 </resources>

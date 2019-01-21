@@ -17,4 +17,6 @@
     <string name="release_date">Tanggal Rilis </string>
     <string name="setting">Pengaturan</string>
     <string name="search_movie_title">Cari Judul Film . . .</string>
+    <string name="favorite_movies">Favorit</string>
+    <string name="currently_no_data">Tidak ada data saat ini</string>
 </resources>

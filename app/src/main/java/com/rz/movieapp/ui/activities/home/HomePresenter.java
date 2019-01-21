@@ -1,5 +1,6 @@
 package com.rz.movieapp.ui.activities.home;
 
+import com.rz.movieapp.ui.fragments.favorite.FavoriteFragment;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
 import com.rz.movieapp.ui.fragments.search.SearchFragment;
 import com.rz.movieapp.ui.fragments.upcoming.UpcomingFragment;
@@ -11,6 +12,7 @@ public class HomePresenter implements HomeContract.Presenter{
     static final String F_NOW_PLAYING = "nowplaying";
     static final String F_UPCOMING = "upcoming";
     static final String F_SEARCH = "search";
+    static final String F_FAVORITE = "favorite";
 
     private HomeContract.View view;
 
@@ -30,6 +32,8 @@ public class HomePresenter implements HomeContract.Presenter{
             case F_SEARCH:
                 view.setFragment(new SearchFragment());
                 break;
+            case F_FAVORITE:
+                view.setFragment(new FavoriteFragment());
         }
     }
 }

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.rz.movieapp.R;
+import com.rz.movieapp.ui.fragments.favorite.FavoriteFragment;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
 import com.rz.movieapp.ui.fragments.search.SearchFragment;
 import com.rz.movieapp.ui.fragments.upcoming.UpcomingFragment;
@@ -85,6 +86,12 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
                         if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof SearchFragment)) {
                             setActionBarTitle(getString(R.string.search));
                             presenter.changeFragment(HomePresenter.F_SEARCH);
+                        }
+                        return true;
+                    case R.id.menu_favorite:
+                        if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof FavoriteFragment)) {
+                            setActionBarTitle(getString(R.string.favorite_movies));
+                            presenter.changeFragment(HomePresenter.F_FAVORITE);
                         }
                         return true;
                 }
