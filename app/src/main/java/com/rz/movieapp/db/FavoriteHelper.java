@@ -80,7 +80,7 @@ public class FavoriteHelper {
 
     public Cursor queryByIdProvider(String movieId) throws NullPointerException{
         Cursor cursor = null;
-        String selection = MOVIE_ID +" =?";
+        String selection = MOVIE_ID + "=?";
         String[] selectionArgs = new String[]{movieId};
 
         try {
@@ -123,18 +123,16 @@ public class FavoriteHelper {
         return result;
     }
 
-    public int updateProvider(String movieId, ContentValues values){
-        int result = db.update(TABLE_FAVORITE,
+    public int updateProvider(String whereClause, String[] whereArgs, ContentValues values){
+        return db.update(TABLE_FAVORITE,
                 values,
-                MOVIE_ID + " = ?",
-                new String[]{movieId});
-        return result;
+                whereClause + "=?",
+                whereArgs);
     }
 
     public int deleteProvider(String whereClause, String[] whereArgs){
-        int result = db.delete(TABLE_FAVORITE,
+        return db.delete(TABLE_FAVORITE,
                 whereClause + "=?"
                 , whereArgs);
-        return result;
     }
 }

@@ -16,8 +16,6 @@ import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.rz.movieapp.R;
 import com.rz.movieapp.data.model.MovieObject;
-import com.rz.movieapp.db.DbContract;
-import com.rz.movieapp.ui.fragments.favorite.FavoriteContract;
 
 import javax.inject.Inject;
 
@@ -26,6 +24,7 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
 import static com.rz.movieapp.db.DbContract.FavColumns.CONTENT_URI;
+import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_ID;
 import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_LANGUAGE;
 import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_OVERVIEW;
 import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_POSTER;
@@ -35,7 +34,6 @@ import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_TITLE;
 
 public class DetailMovieActivity extends DaggerAppCompatActivity implements DetailMovieContract.View {
 
-    final public static String MOVIE_ID = "ID";
     final private static String TAG = "Detail activity";
 
     @BindView(R.id.detail_loading) RelativeLayout mLoadingView;
@@ -48,14 +46,8 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
 
     Menu menuItem = null;
     boolean isFavorite;
-    long idCursor;
+    MovieObject movieObject;
     String id;
-    String title;
-    String rating;
-    String poster;
-    String language;
-    String releaseDate;
-    String overview;
 
     @Inject DetailMovieContract.Presenter mPresenter;
 
@@ -71,7 +63,7 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
     }
 
     private void checkFavorite() {
-        Uri uri = Uri.parse(CONTENT_URI+"");
+        Uri uri = Uri.parse(CONTENT_URI+ "/" + id);
         boolean fav = false;
         String selection = MOVIE_ID +" =?";
         String[] selectionArgs = new String[]{id};
@@ -82,36 +74,10 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
                 null);
 
         String getMovieId = null;
-//        Log.d(TAG, "chekc fav, cursor " + cursor.getString(cursor.getColumnIndex(MOVIE_ID)));
-//        if(cursor!= null && cursor.getCount()>0){
-//            if (cursor.moveToFirst()){
-//                getMovieId = cursor.getString(cursor.getColumnIndex(MOVIE_ID));
-//                if(id.equals(getMovieId)){
-//                    isFavorite = true;
-//                    setFavorite();
-//                }
-//            }
-//            cursor.close();
-//        }
-        //newnwenwnenwe
+
         if(cursor.getCount() > 0 ){
             isFavorite = true;
         }
-//        if(cursor.moveToFirst()){
-//            do{
-//                idCursor = cursor.getLong(0);
-//                Log.d(TAG, "check loop fav cursor id " + idCursor);
-//                getMovieId = cursor.getString(1);
-//                Log.d(TAG, "check loop fav movie id " + getMovieId);
-//                if(getMovieId.equals(id)){
-//                    isFavorite = true;
-//                }
-//                Log.d(TAG, "check isfav after loop " + isFavorite);
-////                setFavorite();
-//            } while (cursor.moveToNext());
-//        }
-        Log.d(TAG, "chekc fav intent id " + id);
-        Log.d(TAG, "chekc fav movie id " + getMovieId);
     }
 
     @Override
@@ -121,23 +87,15 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
 
     @Override
     public void setView(MovieObject results) {
-        String release = getString(R.string.release_date) + " : " + results.getRelease_date();
-        String url = "https://image.tmdb.org/t/p/w342" + results.getPoster_path();
+        movieObject = results;
 
-        title = results.getOriginal_title();
-        rating = results.getVote_average();
-        poster = url;
-        language = results.getOriginal_language().toUpperCase();
-        releaseDate = release;
-        overview = results.getOverview();
+        mTitle.setText(movieObject.getOriginal_title());
+        mReleaseDate.setText(movieObject.getRelease_date());
+        mRating.setText(movieObject.getVote_average());
+        mLanguage.setText(movieObject.getOriginal_language());
+        mOverview.setText(movieObject.getOverview());
 
-        mTitle.setText(title);
-        mReleaseDate.setText(releaseDate);
-        mRating.setText(rating);
-        mLanguage.setText(language);
-        mOverview.setText(overview);
-
-        Glide.with(this).load(url).into(mImg);
+        Glide.with(this).load(movieObject.getPoster_path()).into(mImg);
     }
 
     @Override
@@ -150,20 +108,19 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.favorite_menu, menu);
         menuItem = menu;
-        setFavorite();
+        setFavoriteState();
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void setFavorite() {
-//        if(menuItem!= null){
-            if(isFavorite){
-                menuItem.getItem(0).setIcon(ContextCompat
-                        .getDrawable(this, R.drawable.ic_favorite_pink_24dp));
-            } else {
-                menuItem.getItem(0).setIcon(ContextCompat
-                        .getDrawable(this, R.drawable.ic_favorite_border_pink_24dp));
-            }
-//        }
+    @Override
+    public void setFavoriteState() {
+        if(isFavorite){
+            menuItem.getItem(0).setIcon(ContextCompat
+                    .getDrawable(this, R.drawable.ic_favorite_pink_24dp));
+        } else {
+            menuItem.getItem(0).setIcon(ContextCompat
+                    .getDrawable(this, R.drawable.ic_favorite_border_pink_24dp));
+        }
     }
 
     @Override
@@ -171,14 +128,12 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
         switch (item.getItemId()){
             case R.id.fav_button:
                 if(isFavorite){
-                    Log.d(TAG, "removed from fav");
                     removeFromFavorite();
                 } else {
-                    Log.d(TAG, "added to fav");
                     addToFavorite();
                 }
                 isFavorite = !isFavorite;
-                setFavorite();
+                setFavoriteState();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -186,13 +141,13 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
 
     private void addToFavorite() {
         ContentValues values = new ContentValues();
-        values.put(DbContract.FavColumns.MOVIE_ID, id);
-        values.put(MOVIE_TITLE, title);
-        values.put(MOVIE_RATING, rating);
-        values.put(MOVIE_POSTER, poster);
-        values.put(MOVIE_LANGUAGE, language);
-        values.put(MOVIE_R_DATE, releaseDate);
-        values.put(MOVIE_OVERVIEW, overview);
+        values.put(MOVIE_ID, movieObject.getId());
+        values.put(MOVIE_TITLE, movieObject.getOriginal_title());
+        values.put(MOVIE_RATING, movieObject.getVote_average());
+        values.put(MOVIE_POSTER, movieObject.getPoster_path());
+        values.put(MOVIE_LANGUAGE, movieObject.getOriginal_language());
+        values.put(MOVIE_R_DATE, movieObject.getRelease_date());
+        values.put(MOVIE_OVERVIEW, movieObject.getOverview());
 
         getContentResolver().insert(CONTENT_URI, values);
         setResult(101);
@@ -201,6 +156,6 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
     private void removeFromFavorite() {
         Uri uri = Uri.parse(CONTENT_URI + "");
         Log.d(TAG, uri.toString());
-        getContentResolver().delete(uri, MOVIE_ID, new String[]{id});
+        getContentResolver().delete(uri, MOVIE_ID, new String[]{movieObject.getId()});
     }
 }

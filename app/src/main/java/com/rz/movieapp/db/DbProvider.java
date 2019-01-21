@@ -95,6 +95,7 @@ public class DbProvider extends ContentProvider {
                 Log.d("dbprovider delete", "deleted");
                 deleted = dbHelper.deleteProvider(selection, selectionArgs);
                 break;
+
             default:
                 deleted = 0;
                 break;
@@ -113,7 +114,7 @@ public class DbProvider extends ContentProvider {
         int updated ;
         switch (uriMatcher.match(uri)) {
             case FAVORITE_ID:
-                updated =  dbHelper.updateProvider(uri.getLastPathSegment(), values);
+                updated =  dbHelper.updateProvider(selection, selectionArgs, values);
                 break;
             default:
                 updated = 0;

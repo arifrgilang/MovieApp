@@ -4,6 +4,7 @@ import com.rz.movieapp.data.model.MovieObject;
 
 public interface DetailMovieContract {
     interface View{
+        void setFavoriteState();
         void showLoading(Boolean condition);
         void setView(MovieObject results);
     }

@@ -15,6 +15,8 @@ import com.rz.movieapp.R;
 import com.rz.movieapp.data.model.MovieObject;
 import com.rz.movieapp.ui.activities.detail.DetailMovieActivity;
 
+import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_ID;
+
 public class FavoriteListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     private Cursor mList;
     private Context context;
@@ -49,7 +51,7 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<ListViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailMovieActivity.class);
-                intent.putExtra(DetailMovieActivity.MOVIE_ID, movieId);
+                intent.putExtra(MOVIE_ID, movieId);
                 context.startActivity(intent);
             }
         });

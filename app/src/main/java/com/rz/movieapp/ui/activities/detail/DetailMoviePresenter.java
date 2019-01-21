@@ -1,7 +1,9 @@
 package com.rz.movieapp.ui.activities.detail;
 
+import android.content.res.Resources;
 import android.util.Log;
 
+import com.rz.movieapp.R;
 import com.rz.movieapp.data.api.MovieDBClient;
 import com.rz.movieapp.data.model.MovieObject;
 
@@ -41,6 +43,8 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter{
                     public void onNext(MovieObject movieResponse) {
                         Log.d(TAG, "onNext");
                         view.showLoading(false);
+                        movieResponse.setPoster_path("https://image.tmdb.org/t/p/w342"
+                                + movieResponse.getPoster_path());
                         view.setView(movieResponse);
                     }
 
