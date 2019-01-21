@@ -4,6 +4,7 @@
     package="com.rz.movieapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="com.rz.movieapp.READ_WRITE"/>
 
     <application
         android:name=".MyApp"
@@ -32,6 +33,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.home.HomeActivity" />
         </activity>
+
+        <provider
+            android:name=".data.provider.MovieContentProvider"
+            android:authorities="com.rz.movieapp"
+            android:exported="true"
+            android:permission="com.rz.movieapp.READ_WRITE"/>
     </application>
 
 </manifest>

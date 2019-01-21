@@ -3,26 +3,13 @@ package com.rz.movieapp.data.model;
 import com.google.gson.annotations.SerializedName;
 
 public class MovieObject {
-    @SerializedName("original_title")
-    private String original_title;
-
-    @SerializedName("vote_average")
-    private String vote_average;
-
-    @SerializedName("poster_path")
-    private String poster_path;
-
-    @SerializedName("original_language")
-    private String original_language;
-
-    @SerializedName("release_date")
-    private String release_date;
-
-    @SerializedName("overview")
-    private String overview;
-
-    @SerializedName("id")
-    private String id;
+    @SerializedName("original_title") private String original_title;
+    @SerializedName("vote_average") private String vote_average;
+    @SerializedName("poster_path") private String poster_path;
+    @SerializedName("original_language") private String original_language;
+    @SerializedName("release_date") private String release_date;
+    @SerializedName("overview") private String overview;
+    @SerializedName("id") private String id;
 
     public String getId() {
         return id;
