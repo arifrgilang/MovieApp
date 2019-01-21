@@ -50,6 +50,12 @@ public class FavoriteFragment extends DaggerFragment implements FavoriteContract
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mRvAdapter = null;

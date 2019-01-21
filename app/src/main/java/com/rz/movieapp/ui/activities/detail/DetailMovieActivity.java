@@ -58,26 +58,13 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
         id = getIntent().getStringExtra(MOVIE_ID);
 
         ButterKnife.bind(this);
-        mPresenter.getMovieDetail(id);
-        checkFavorite();
+        init();
     }
 
-    private void checkFavorite() {
-        Uri uri = Uri.parse(CONTENT_URI+ "/" + id);
-        boolean fav = false;
-        String selection = MOVIE_ID +" =?";
-        String[] selectionArgs = new String[]{id};
-        Cursor cursor = getContentResolver().query(uri,
-                null,
-                selection,
-                selectionArgs,
-                null);
-
-        String getMovieId = null;
-
-        if(cursor.getCount() > 0 ){
-            isFavorite = true;
-        }
+    private void init(){
+        mPresenter.setContext(this);
+        mPresenter.getMovieDetail(id);
+        mPresenter.checkFavorite(id);
     }
 
     @Override
@@ -96,6 +83,11 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
         mOverview.setText(movieObject.getOverview());
 
         Glide.with(this).load(movieObject.getPoster_path()).into(mImg);
+    }
+
+    @Override
+    public void setFavorite(Boolean condition) {
+        isFavorite = condition;
     }
 
     @Override
@@ -128,34 +120,15 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
         switch (item.getItemId()){
             case R.id.fav_button:
                 if(isFavorite){
-                    removeFromFavorite();
+                    mPresenter.removeFromFavorite(movieObject);
                 } else {
-                    addToFavorite();
+                    mPresenter.addToFavorite(movieObject);
+                    setResult(101);
                 }
                 isFavorite = !isFavorite;
                 setFavoriteState();
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void addToFavorite() {
-        ContentValues values = new ContentValues();
-        values.put(MOVIE_ID, movieObject.getId());
-        values.put(MOVIE_TITLE, movieObject.getOriginal_title());
-        values.put(MOVIE_RATING, movieObject.getVote_average());
-        values.put(MOVIE_POSTER, movieObject.getPoster_path());
-        values.put(MOVIE_LANGUAGE, movieObject.getOriginal_language());
-        values.put(MOVIE_R_DATE, movieObject.getRelease_date());
-        values.put(MOVIE_OVERVIEW, movieObject.getOverview());
-
-        getContentResolver().insert(CONTENT_URI, values);
-        setResult(101);
-    }
-
-    private void removeFromFavorite() {
-        Uri uri = Uri.parse(CONTENT_URI + "");
-        Log.d(TAG, uri.toString());
-        getContentResolver().delete(uri, MOVIE_ID, new String[]{movieObject.getId()});
     }
 }

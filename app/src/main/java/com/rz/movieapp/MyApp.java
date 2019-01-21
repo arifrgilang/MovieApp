@@ -1,5 +1,6 @@
 package com.rz.movieapp;
 
+
 import com.rz.movieapp.di.coremodules.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;

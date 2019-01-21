@@ -10,6 +10,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+
 import static com.rz.movieapp.db.DbContract.AUTHORITY;
 import static com.rz.movieapp.db.DbContract.FavColumns.CONTENT_URI;
 import static com.rz.movieapp.db.DbContract.FavColumns.TABLE_FAVORITE;
@@ -25,7 +29,8 @@ public class DbProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, TABLE_FAVORITE, FAVORITE);
         uriMatcher.addURI(AUTHORITY, TABLE_FAVORITE + "/#", FAVORITE_ID);
     }
-    private FavoriteHelper dbHelper;
+
+    FavoriteHelper dbHelper;
 
     @Override
     public boolean onCreate() {

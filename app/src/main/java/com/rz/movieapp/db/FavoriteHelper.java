@@ -10,6 +10,9 @@ import com.rz.movieapp.data.model.MovieObject;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static android.provider.BaseColumns._ID;
 import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_ID;
 import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_LANGUAGE;
@@ -20,6 +23,7 @@ import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_R_DATE;
 import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_TITLE;
 import static com.rz.movieapp.db.DbContract.FavColumns.TABLE_FAVORITE;
 
+@Singleton
 public class FavoriteHelper {
 
     private Context context;

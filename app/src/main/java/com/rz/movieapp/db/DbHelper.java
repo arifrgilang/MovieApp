@@ -47,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     MOVIE_R_DATE,
                     MOVIE_OVERVIEW);
 
-    @Inject public DbHelper(Context context) {
+    public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

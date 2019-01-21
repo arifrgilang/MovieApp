@@ -7,8 +7,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.rz.movieapp.R;
@@ -34,6 +36,7 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
+        Log.d("HOME AC", "ONcreate");
         setActionBarTitle(getString(R.string.now_playing));
         initBottomNav();
         presenter.changeFragment(HomePresenter.F_NOW_PLAYING);
@@ -98,6 +101,7 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
                 return false;
             }
         });
+        bottomNavigationView.setSelectedItemId(R.id.menu_nowplaying);
     }
 
     @Override

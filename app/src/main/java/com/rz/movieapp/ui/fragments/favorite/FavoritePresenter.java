@@ -58,10 +58,7 @@ public class FavoritePresenter implements FavoriteContract.Presenter{
             super.onPostExecute(cursor);
             view.showLoading(false);
             view.setView(cursor);
-//            if(cursor.getCount() != null){
-//
-//            }
-//            view.showNotFound(cursor.getCount() == 0);
+            view.showNotFound(cursor.getCount() == 0);
         }
     }
 }
