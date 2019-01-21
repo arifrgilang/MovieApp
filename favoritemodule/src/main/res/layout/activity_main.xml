@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".activities.main.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_favorite"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"/>
+
 
     <ProgressBar
         android:id="@+id/pb_favorite"
@@ -25,8 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:background="@android:color/white"
-        android:layout_above="@id/search_layout">
+        android:background="@android:color/white">
 
         <TextView
             android:layout_width="match_parent"
