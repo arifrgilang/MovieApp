@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +35,8 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
     @Inject
     UpcomingContract.Presenter mPresenter;
 
+    ArrayList<MovieObject> mList = null;
     MovieListAdapter mRvAdapter;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -53,14 +50,20 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initAdapter();
-        requestData();
+        if (savedInstanceState != null){
+            mList = savedInstanceState.getParcelableArrayList("mList");
+            setView(mList);
+            Log.d("logloglog", "onActivityCreated: notnull upcoming");
+        } else {
+            requestData();
+            Log.d("logloglog", "onActivityCreated: null upcoming");
+        }
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mRvAdapter = null;
-        mPresenter.onDestroyComposite();
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("mList", mList);
     }
 
     private void requestData() {
@@ -80,6 +83,7 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
 
     @Override
     public void setView(ArrayList<MovieObject> results) {
-        mRvAdapter.setData(results);
+        mList = results;
+        mRvAdapter.setData(mList);
     }
 }

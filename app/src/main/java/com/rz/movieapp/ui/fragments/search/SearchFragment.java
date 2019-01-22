@@ -49,7 +49,9 @@ public class SearchFragment extends DaggerFragment implements SearchContract.Vie
     @Inject
     SearchContract.Presenter mPresenter;
 
+    ArrayList<MovieObject> mList = null;
     MovieListAdapter mRvAdapter;
+    String query = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,14 +70,28 @@ public class SearchFragment extends DaggerFragment implements SearchContract.Vie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initAdapter();
-        requestData("a");
+        if (savedInstanceState != null){
+            mList = savedInstanceState.getParcelableArrayList("mList");
+            query = savedInstanceState.getString("query");
+            setView(mList);
+            mSearchEditText.setText(query);
+        } else {
+            if (query == null){
+                query = "a";
+            }
+            requestData(query);
+        }
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mRvAdapter = null;
-        mPresenter.onDestroyComposite();
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String text = mSearchEditText.getText().toString();
+        if(text.isEmpty()){
+            text = "a";
+        }
+        outState.putParcelableArrayList("mList", mList);
+        outState.putString("query", text);
     }
 
     private void requestData(String query) {
@@ -100,7 +116,8 @@ public class SearchFragment extends DaggerFragment implements SearchContract.Vie
 
     @Override
     public void setView(ArrayList<MovieObject> results) {
-        mRvAdapter.setData(results);
+        mList = results;
+        mRvAdapter.setData(mList);
     }
 
     @OnClick(R.id.bt_search)
