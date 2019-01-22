@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
 
     @Inject NowPlayingContract.Presenter mPresenter;
 
-    ArrayList<MovieObject> mList;
+    ArrayList<MovieObject> mList = null;
     MovieListAdapter mRvAdapter;
 
     @Override
@@ -44,12 +45,14 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initAdapter();
-//        if (savedInstanceState != null){
-//            setView(savedInstanceState.<MovieObject>getParcelableArrayList("mList"));
-//        } else {
-//            requestData();
-//        }
-        requestData();
+        if (savedInstanceState != null){
+            mList = savedInstanceState.getParcelableArrayList("mList");
+            setView(mList);
+            Log.d("logloglog", "onActivityCreated: notnull");
+        } else {
+            requestData();
+            Log.d("logloglog", "onActivityCreated: null");
+        }
     }
 
     @Override
@@ -61,8 +64,6 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mRvAdapter = null;
-        mPresenter.onDestroyComposite();
     }
 
     private void requestData() {

@@ -55,12 +55,6 @@ public class FavoriteFragment extends DaggerFragment implements FavoriteContract
         getData();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mRvAdapter = null;
-    }
-
     private void getData() {
         mPresenter.getFavoriteMovies();
     }

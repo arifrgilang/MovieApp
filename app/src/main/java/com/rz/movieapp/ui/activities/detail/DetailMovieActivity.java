@@ -108,11 +108,6 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     public void showLoading(Boolean condition) {
         mLoadingView.setVisibility(condition ? View.VISIBLE : View.INVISIBLE);
     }

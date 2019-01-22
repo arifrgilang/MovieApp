@@ -31,6 +31,7 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
     @BindView(R.id.bottom_nav) BottomNavigationView bottomNavigationView;
     String currentFragment = null;
     String currentTitle = null;
+    Fragment current;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +44,15 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
         if (savedInstanceState != null){
             currentTitle = savedInstanceState.getString("currentTitle");
             currentFragment = savedInstanceState.getString("currentFragment");
+            current = getSupportFragmentManager().getFragment(savedInstanceState, "keyf");
+            setFragment(current);
         } else {
             if(currentFragment == null && currentTitle == null){
                 currentTitle = getString(R.string.now_playing);
                 currentFragment = HomePresenter.F_NOW_PLAYING;
+                changeFragment();
             }
         }
-
-        changeFragment();
     }
 
     @Override
@@ -58,6 +60,7 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
         super.onSaveInstanceState(outState);
         outState.putString("currentTitle", currentTitle);
         outState.putString("currentFragment", currentFragment);
+        getSupportFragmentManager().putFragment(outState, "keyf", current);
     }
 
     @Override
@@ -77,10 +80,12 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
 
     @Override
     public void setFragment(Fragment fragment) {
+        current = fragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id.home_frame_layout, fragment)
+                .replace(R.id.home_frame_layout, current)
+                .addToBackStack(null)
                 .commit();
     }
 
