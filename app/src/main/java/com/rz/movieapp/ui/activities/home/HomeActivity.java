@@ -7,11 +7,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.rz.movieapp.R;
+import com.rz.movieapp.ui.fragments.favorite.FavoriteFragment;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
 import com.rz.movieapp.ui.fragments.search.SearchFragment;
 import com.rz.movieapp.ui.fragments.upcoming.UpcomingFragment;
@@ -33,6 +36,7 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
+        Log.d("HOME AC", "ONcreate");
         setActionBarTitle(getString(R.string.now_playing));
         initBottomNav();
         presenter.changeFragment(HomePresenter.F_NOW_PLAYING);
@@ -87,10 +91,17 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
                             presenter.changeFragment(HomePresenter.F_SEARCH);
                         }
                         return true;
+                    case R.id.menu_favorite:
+                        if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof FavoriteFragment)) {
+                            setActionBarTitle(getString(R.string.favorite_movies));
+                            presenter.changeFragment(HomePresenter.F_FAVORITE);
+                        }
+                        return true;
                 }
                 return false;
             }
         });
+        bottomNavigationView.setSelectedItemId(R.id.menu_nowplaying);
     }
 
     @Override

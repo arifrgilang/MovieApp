@@ -1,15 +1,11 @@
 package com.rz.movieapp.ui.fragments.nowplaying;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -34,11 +30,6 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
     @Inject NowPlayingContract.Presenter mPresenter;
 
     MovieListAdapter mRvAdapter;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -74,7 +65,7 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
 
     @Override
     public void showLoading(Boolean condition) {
-        mLoading.setVisibility(condition? View.VISIBLE: View.INVISIBLE);
+        mLoading.setVisibility(condition ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override

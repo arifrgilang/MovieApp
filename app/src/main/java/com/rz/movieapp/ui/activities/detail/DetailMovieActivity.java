@@ -1,6 +1,13 @@
 package com.rz.movieapp.ui.activities.detail;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,9 +23,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
+import static com.rz.movieapp.db.DbContract.FavColumns.CONTENT_URI;
+import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_ID;
+import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_LANGUAGE;
+import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_OVERVIEW;
+import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_POSTER;
+import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_RATING;
+import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_R_DATE;
+import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_TITLE;
+
 public class DetailMovieActivity extends DaggerAppCompatActivity implements DetailMovieContract.View {
 
-    final public static String MOVIE_ID = "ID";
+    final private static String TAG = "Detail activity";
 
     @BindView(R.id.detail_loading) RelativeLayout mLoadingView;
     @BindView(R.id.detail_img) CircularImageView mImg;
@@ -28,17 +44,27 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
     @BindView(R.id.detail_language) TextView mLanguage;
     @BindView(R.id.detail_overview) TextView mOverview;
 
+    Menu menuItem = null;
+    boolean isFavorite;
+    MovieObject movieObject;
+    String id;
+
     @Inject DetailMovieContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
-        String id = getIntent().getStringExtra(MOVIE_ID);
+        id = getIntent().getStringExtra(MOVIE_ID);
 
         ButterKnife.bind(this);
+        init();
+    }
 
+    private void init(){
+        mPresenter.setContext(this);
         mPresenter.getMovieDetail(id);
+        mPresenter.checkFavorite(id);
     }
 
     @Override
@@ -48,21 +74,61 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
 
     @Override
     public void setView(MovieObject results) {
-        String releaseDate = getString(R.string.release_date) + " : " + results.getRelease_date();
-        String url = "https://image.tmdb.org/t/p/w342" + results.getPoster_path();
+        movieObject = results;
 
-        mTitle.setText(results.getOriginal_title());
-        mReleaseDate.setText(releaseDate);
-        mRating.setText(results.getVote_average());
-        mLanguage.setText(results.getOriginal_language().toUpperCase());
-        mOverview.setText(results.getOverview());
+        mTitle.setText(movieObject.getOriginal_title());
+        mReleaseDate.setText(movieObject.getRelease_date());
+        mRating.setText(movieObject.getVote_average());
+        mLanguage.setText(movieObject.getOriginal_language());
+        mOverview.setText(movieObject.getOverview());
 
-        Glide.with(this).load(url).into(mImg);
+        Glide.with(this).load(movieObject.getPoster_path()).into(mImg);
+    }
+
+    @Override
+    public void setFavorite(Boolean condition) {
+        isFavorite = condition;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroyComposite();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.favorite_menu, menu);
+        menuItem = menu;
+        setFavoriteState();
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void setFavoriteState() {
+        if(isFavorite){
+            menuItem.getItem(0).setIcon(ContextCompat
+                    .getDrawable(this, R.drawable.ic_favorite_pink_24dp));
+        } else {
+            menuItem.getItem(0).setIcon(ContextCompat
+                    .getDrawable(this, R.drawable.ic_favorite_border_pink_24dp));
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.fav_button:
+                if(isFavorite){
+                    mPresenter.removeFromFavorite(movieObject);
+                } else {
+                    mPresenter.addToFavorite(movieObject);
+                    setResult(101);
+                }
+                isFavorite = !isFavorite;
+                setFavoriteState();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

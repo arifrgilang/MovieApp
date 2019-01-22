@@ -14,6 +14,12 @@
         android:icon="@drawable/ic_event_note_white_24dp"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/menu_favorite"
+        android:orderInCategory="100"
+        android:title="@string/favorite_movies"
+        android:icon="@drawable/ic_favorite_white_24dp"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/menu_search"
         android:orderInCategory="100"
         android:title="@string/search_movie"

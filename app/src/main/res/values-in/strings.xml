@@ -8,13 +8,12 @@
     <string name="overview">Ikhtisar</string>
     <string name="no_result_found">Pencarian tidak ditemukan</string>
 
-    <string name="hello_blank_fragment">Halo fragment kosong</string>
     <string name="now_playing">Sedang Tayang</string>
     <string name="upcoming">Akan Datang</string>
     <string name="search_movie">Pencarian Film</string>
-    <string name="input_query">Masukkan inputan</string>
     <string name="fill_query">Isi form!</string>
-    <string name="release_date">Tanggal Rilis </string>
     <string name="setting">Pengaturan</string>
     <string name="search_movie_title">Cari Judul Film . . .</string>
+    <string name="favorite_movies">Favorit</string>
+    <string name="currently_no_data">Tidak ada data saat ini</string>
 </resources>
