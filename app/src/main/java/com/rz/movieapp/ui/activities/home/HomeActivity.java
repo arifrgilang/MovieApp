@@ -29,6 +29,8 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
 
     @Inject HomeContract.Presenter presenter;
     @BindView(R.id.bottom_nav) BottomNavigationView bottomNavigationView;
+    String currentFragment = null;
+    String currentTitle = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +38,26 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-        Log.d("HOME AC", "ONcreate");
-        setActionBarTitle(getString(R.string.now_playing));
         initBottomNav();
-        presenter.changeFragment(HomePresenter.F_NOW_PLAYING);
+
+        if (savedInstanceState != null){
+            currentTitle = savedInstanceState.getString("currentTitle");
+            currentFragment = savedInstanceState.getString("currentFragment");
+        } else {
+            if(currentFragment == null && currentTitle == null){
+                currentTitle = getString(R.string.now_playing);
+                currentFragment = HomePresenter.F_NOW_PLAYING;
+            }
+        }
+
+        changeFragment();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("currentTitle", currentTitle);
+        outState.putString("currentFragment", currentFragment);
     }
 
     @Override
@@ -75,26 +93,30 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
                 switch (menuItem.getItemId()){
                     case R.id.menu_nowplaying:
                         if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof NowPlayingFragment)){
-                            setActionBarTitle(getString(R.string.now_playing));
-                            presenter.changeFragment(HomePresenter.F_NOW_PLAYING);
+                            currentTitle = getString(R.string.now_playing);
+                            currentFragment = HomePresenter.F_NOW_PLAYING;
+                            changeFragment();
                         }
                         return true;
                     case R.id.menu_upcoming:
                         if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof UpcomingFragment)) {
-                            setActionBarTitle(getString(R.string.upcoming));
-                            presenter.changeFragment(HomePresenter.F_UPCOMING);
+                            currentFragment = HomePresenter.F_UPCOMING;
+                            currentTitle = getString(R.string.upcoming);
+                            changeFragment();
                         }
                         return true;
                     case R.id.menu_search:
                         if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof SearchFragment)) {
-                            setActionBarTitle(getString(R.string.search));
-                            presenter.changeFragment(HomePresenter.F_SEARCH);
+                            currentFragment = HomePresenter.F_SEARCH;
+                            currentTitle = getString(R.string.search);
+                            changeFragment();
                         }
                         return true;
                     case R.id.menu_favorite:
                         if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof FavoriteFragment)) {
-                            setActionBarTitle(getString(R.string.favorite_movies));
-                            presenter.changeFragment(HomePresenter.F_FAVORITE);
+                            currentFragment = HomePresenter.F_FAVORITE;
+                            currentTitle = getString(R.string.favorite_movies);
+                            changeFragment();
                         }
                         return true;
                 }
@@ -109,5 +131,10 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
         if(getSupportActionBar() != null){
             getSupportActionBar().setTitle(title);
         }
+    }
+
+    private void changeFragment(){
+        setActionBarTitle(currentTitle);
+        presenter.changeFragment(currentFragment);
     }
 }

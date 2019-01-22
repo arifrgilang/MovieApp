@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.rz.movieapp.R;
 import com.rz.movieapp.data.model.MovieObject;
+import com.rz.movieapp.ui.activities.home.HomePresenter;
 
 import javax.inject.Inject;
 
@@ -23,18 +24,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
-import static com.rz.movieapp.db.DbContract.FavColumns.CONTENT_URI;
 import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_ID;
-import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_LANGUAGE;
-import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_OVERVIEW;
-import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_POSTER;
-import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_RATING;
-import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_R_DATE;
-import static com.rz.movieapp.db.DbContract.FavColumns.MOVIE_TITLE;
 
 public class DetailMovieActivity extends DaggerAppCompatActivity implements DetailMovieContract.View {
 
-    final private static String TAG = "Detail activity";
+    final private static String KEY = "Detail activity";
 
     @BindView(R.id.detail_loading) RelativeLayout mLoadingView;
     @BindView(R.id.detail_img) CircularImageView mImg;
@@ -55,16 +49,67 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
-        id = getIntent().getStringExtra(MOVIE_ID);
 
         ButterKnife.bind(this);
-        init();
+
+        id = getIntent().getStringExtra(MOVIE_ID);
+        mPresenter.setContext(this);
+        if (savedInstanceState != null){
+            movieObject = savedInstanceState.getParcelable("movieObject");
+            isFavorite = savedInstanceState.getBoolean("isFavorite");
+            Log.d("TAG", "onCreate: movieobject"+movieObject.getOriginal_title());
+            Log.d("TAG", "onCreate: isfavorite" + isFavorite);
+            setView(movieObject);
+            setFavorite(isFavorite);
+        } else {
+            mPresenter.getMovieDetail(id);
+            mPresenter.checkFavorite(id);
+        }
     }
 
-    private void init(){
-        mPresenter.setContext(this);
-        mPresenter.getMovieDetail(id);
-        mPresenter.checkFavorite(id);
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("movieObject", movieObject);
+        outState.putBoolean("isFavorite", isFavorite);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.favorite_menu, menu);
+        menuItem = menu;
+        setFavoriteState();
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.fav_button:
+                if(isFavorite){
+                    mPresenter.removeFromFavorite(movieObject);
+                } else {
+                    mPresenter.addToFavorite(movieObject);
+                    setResult(101);
+                }
+                isFavorite = !isFavorite;
+                setFavoriteState();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isFinishing()){
+            mPresenter.onDestroyComposite();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -91,20 +136,6 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.onDestroyComposite();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.favorite_menu, menu);
-        menuItem = menu;
-        setFavoriteState();
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public void setFavoriteState() {
         if(isFavorite){
             menuItem.getItem(0).setIcon(ContextCompat
@@ -115,20 +146,4 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.fav_button:
-                if(isFavorite){
-                    mPresenter.removeFromFavorite(movieObject);
-                } else {
-                    mPresenter.addToFavorite(movieObject);
-                    setResult(101);
-                }
-                isFavorite = !isFavorite;
-                setFavoriteState();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

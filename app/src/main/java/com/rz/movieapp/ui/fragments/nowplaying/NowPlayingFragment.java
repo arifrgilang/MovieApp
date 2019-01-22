@@ -29,6 +29,7 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
 
     @Inject NowPlayingContract.Presenter mPresenter;
 
+    ArrayList<MovieObject> mList;
     MovieListAdapter mRvAdapter;
 
     @Override
@@ -43,7 +44,18 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initAdapter();
+//        if (savedInstanceState != null){
+//            setView(savedInstanceState.<MovieObject>getParcelableArrayList("mList"));
+//        } else {
+//            requestData();
+//        }
         requestData();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("mList", mList);
     }
 
     @Override
@@ -70,6 +82,7 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
 
     @Override
     public void setView(ArrayList<MovieObject> results) {
-        mRvAdapter.setData(results);
+        mList = results;
+        mRvAdapter.setData(mList);
     }
 }
