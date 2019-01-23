@@ -85,7 +85,6 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.home_frame_layout, current)
-                .addToBackStack(null)
                 .commit();
     }
 

@@ -16,4 +16,6 @@
     <string name="search_movie_title">Cari Judul Film . . .</string>
     <string name="favorite_movies">Favorit</string>
     <string name="currently_no_data">Tidak ada data saat ini</string>
+    <string name="added">Ditambahkan ke favorite</string>
+    <string name="deleted">Dihapus dari favorite</string>
 </resources>

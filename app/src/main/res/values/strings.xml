@@ -16,4 +16,7 @@
     <string name="search_movie_title">Search Movie Title . . .</string>
     <string name="favorite_movies">Favorite</string>
     <string name="currently_no_data">Currently No Data</string>
+    <string name="added">Added to Favorite</string>
+    <string name="deleted">Deleted from Favorite</string>
+
 </resources>
