@@ -21,7 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <provider
             android:name=".db.DbProvider"
             android:authorities="com.rz.movieapp"
@@ -45,6 +44,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.home.HomeActivity" />
         </activity>
+
+        <receiver android:name=".widget.MovieAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/movie_app_widget_info" />
+        </receiver>
+
+        <service android:name=".widget.StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" >
+        </service>
     </application>
 
 </manifest>
