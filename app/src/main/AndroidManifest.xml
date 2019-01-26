@@ -4,6 +4,8 @@
     package="com.rz.movieapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <permission
         android:name="com.rz.movieapp.READ_DATABASE"
@@ -45,6 +47,14 @@
                 android:value=".ui.activities.home.HomeActivity" />
         </activity>
 
+        <activity
+            android:name=".ui.activities.setting.SettingActivity"
+            android:parentActivityName=".ui.activities.home.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.home.HomeActivity" />
+        </activity>
+
         <receiver android:name=".widget.MovieAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -54,10 +64,14 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/movie_app_widget_info" />
         </receiver>
+        <receiver
+            android:name=".reminder.DailyReminderReceiver"
+            android:enabled="true"
+            android:exported="true" />
 
-        <service android:name=".widget.StackWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS" >
-        </service>
+        <service
+            android:name=".widget.StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"></service>
     </application>
 
 </manifest>

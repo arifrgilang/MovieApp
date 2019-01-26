@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.rz.movieapp.R;
+import com.rz.movieapp.ui.activities.setting.SettingActivity;
 import com.rz.movieapp.ui.fragments.favorite.FavoriteFragment;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
 import com.rz.movieapp.ui.fragments.search.SearchFragment;
@@ -71,9 +72,16 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.setting_button){
-            Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-            startActivity(mIntent);
+        switch (item.getItemId()){
+            case R.id.setting_button:
+                Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(mIntent);
+                break;
+
+            case R.id.setting_reminder_button:
+                Intent mIntent2 = new Intent(this, SettingActivity.class);
+                startActivity(mIntent2);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

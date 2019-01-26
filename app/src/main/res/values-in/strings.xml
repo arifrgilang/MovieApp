@@ -18,7 +18,10 @@
     <string name="currently_no_data">Tidak ada data saat ini</string>
     <string name="added">Ditambahkan ke favorite</string>
     <string name="deleted">Dihapus dari favorite</string>
-    <string name="appwidget_text">Movie Banner</string>
-    <string name="add_widget">Tambah Widget</string>
     <string name="empty_text">DATA KOSONG</string>
+    <string name="daily_title">Mari lihat kembali!</string>
+    <string name="daily_desc">Movie app rindu kamu!</string>
+    <string name="set_daily_reminder">Set pengingat harian</string>
+    <string name="snackbar_daily_on">Pengingat harian dinyalakan</string>
+    <string name="snackbar_daily_off">Pengingat harian dimatikan</string>
 </resources>

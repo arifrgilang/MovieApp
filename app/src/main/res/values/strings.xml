@@ -18,8 +18,11 @@
     <string name="currently_no_data">Currently No Data</string>
     <string name="added">Added to Favorite</string>
     <string name="deleted">Deleted from Favorite</string>
-    <string name="appwidget_text">Movie Banner</string>
-    <string name="add_widget">Add widget</string>
     <string name="empty_text">NO DATA</string>
+    <string name="daily_title">Come see around!</string>
+    <string name="daily_desc">Movie App miss you!</string>
+    <string name="set_daily_reminder">Set daily reminder</string>
+    <string name="snackbar_daily_on">Daily reminder turned on</string>
+    <string name="snackbar_daily_off">Daily reminder turned off</string>
 
 </resources>

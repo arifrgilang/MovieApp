@@ -28,6 +28,7 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation "com.android.support:cardview-v7:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
+    implementation "com.android.support:support-v4:$supportLibVersion"
     // Other
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
     // Gson
@@ -44,7 +45,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    implementation 'com.android.support:support-v4:28.0.0'
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     // ButterKnife
     implementation "com.jakewharton:butterknife:$butterknife_version"
