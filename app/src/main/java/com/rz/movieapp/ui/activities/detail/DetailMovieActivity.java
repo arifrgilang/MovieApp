@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
@@ -30,6 +31,7 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
 
     final private static String KEY = "Detail activity";
 
+    @BindView(R.id.detail_layout) RelativeLayout mLayout;
     @BindView(R.id.detail_loading) RelativeLayout mLoadingView;
     @BindView(R.id.detail_img) CircularImageView mImg;
     @BindView(R.id.detail_title) TextView mTitle;
@@ -93,18 +95,11 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
                     setResult(101);
                 }
                 isFavorite = !isFavorite;
+                showSnackbar(isFavorite);
                 setFavoriteState();
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (isFinishing()){
-            mPresenter.onDestroyComposite();
-        }
     }
 
     @Override
@@ -141,4 +136,8 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
         }
     }
 
+    private void showSnackbar(Boolean condition){
+        String string = condition ? getString(R.string.added) : getString(R.string.deleted);
+        Snackbar.make(mLayout, string, Snackbar.LENGTH_SHORT).show();
+    }
 }

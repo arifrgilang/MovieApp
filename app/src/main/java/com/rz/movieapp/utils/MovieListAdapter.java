@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.rz.movieapp.BuildConfig;
 import com.rz.movieapp.R;
 import com.rz.movieapp.data.model.MovieObject;
 import com.rz.movieapp.ui.activities.detail.DetailMovieActivity;
@@ -38,7 +39,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder listViewHolder, int i) {
         String title = mList.get(i).getOriginal_title();
-        String url = "https://image.tmdb.org/t/p/w154" + mList.get(i).getPoster_path();
+        String url = BuildConfig.IMG_BASE_URL + mList.get(i).getPoster_path();
         final String movieId = mList.get(i).getId();
 
         listViewHolder.rvText.setText(title);

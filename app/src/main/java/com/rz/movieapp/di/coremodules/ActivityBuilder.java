@@ -1,7 +1,10 @@
 package com.rz.movieapp.di.coremodules;
 
+import com.rz.movieapp.di.othermodules.NetworkModule;
+import com.rz.movieapp.reminder.ReleaseReminderReceiver;
 import com.rz.movieapp.ui.activities.detail.DetailMovieActivity;
 import com.rz.movieapp.ui.activities.detail.DetailMovieModule;
+import com.rz.movieapp.ui.activities.setting.SettingActivity;
 import com.rz.movieapp.ui.fragments.favorite.FavoriteFragment;
 import com.rz.movieapp.ui.fragments.favorite.FavoriteModule;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
@@ -23,7 +26,7 @@ abstract class ActivityBuilder {
     abstract DetailMovieActivity bindDetailMovieActivity();
 
     @ContributesAndroidInjector(modules = HomeModule.class)
-    abstract HomeActivity bindHomectivity();
+    abstract HomeActivity bindHomeActivity();
 
     // Fragment
     @ContributesAndroidInjector(modules = NowPlayingModule.class)
