@@ -23,12 +23,12 @@ import java.util.Calendar;
 
 public class DailyReminderReceiver extends BroadcastReceiver {
 
-    public static final String EXTRA_MESSAGE = "message";
-    public static final String EXTRA_TITLE = "title";
+    private static final String EXTRA_MESSAGE = "message_daily";
+    private static final String EXTRA_TITLE = "title_daily";
 
-    public static final String CH_ID ="channelID_DailyReminder";
-    public static final String CH_NAME ="channelNAME_DailyReminder";
-    public static final int NOTIF_ID = 25;
+    private static final String CH_ID ="CH_01_daily";
+    private static final String CH_NAME ="Daily Reminder Channel";
+    private static final int NOTIF_ID = 25;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -85,7 +85,6 @@ public class DailyReminderReceiver extends BroadcastReceiver {
     }
 
     public void setDailyReminder(Context context, String title, String time, String message){
-//        cancelDailyReminder(context);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, DailyReminderReceiver.class);
         intent.putExtra(EXTRA_MESSAGE, message);

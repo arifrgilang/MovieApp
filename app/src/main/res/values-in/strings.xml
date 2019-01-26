@@ -24,4 +24,8 @@
     <string name="set_daily_reminder">Set pengingat harian</string>
     <string name="snackbar_daily_on">Pengingat harian dinyalakan</string>
     <string name="snackbar_daily_off">Pengingat harian dimatikan</string>
+    <string name="release_title">Rilis hari ini</string>
+    <string name="snackbar_release_on">Pengingat rilis movie dinyalakan</string>
+    <string name="snackbar_release_off">Pengingat rilis movie dimatikan</string>
+    <string name="set_release_reminder">Set notifikasi rilis movie</string>
 </resources>

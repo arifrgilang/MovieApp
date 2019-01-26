@@ -69,9 +69,16 @@
             android:enabled="true"
             android:exported="true" />
 
+        <receiver
+            android:name=".reminder.ReleaseReminderReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
         <service
             android:name=".widget.StackWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"></service>
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+
+        </service>
     </application>
 
 </manifest>

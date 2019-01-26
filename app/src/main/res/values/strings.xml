@@ -24,5 +24,9 @@
     <string name="set_daily_reminder">Set daily reminder</string>
     <string name="snackbar_daily_on">Daily reminder turned on</string>
     <string name="snackbar_daily_off">Daily reminder turned off</string>
+    <string name="release_title">Released today</string>
+    <string name="snackbar_release_on">Daily release notif turned on</string>
+    <string name="snackbar_release_off">Daily release notif turned off</string>
+    <string name="set_release_reminder">Set movie release notifications</string>
 
 </resources>

@@ -1,14 +1,18 @@
 package com.rz.movieapp.ui.activities.setting;
 
-class SettingContract {
+interface SettingContract {
     interface View{
-        void setSwitch(boolean condition);
-        void setCurrentCondition(boolean condition);
+        void setDailySwitch(boolean condition);
+        void setDailyCondition(boolean condition);
+        void setReleaseSwitch(boolean condition);
+        void setReleaseCondition(boolean condition);
     }
 
     interface Presenter{
         void turnOnDailyAlarm();
         void turnOffDailyAlarm();
+        void turnOnReleaseAlarm();
+        void turnOffReleaseAlarm();
         void checkCondition();
     }
 }

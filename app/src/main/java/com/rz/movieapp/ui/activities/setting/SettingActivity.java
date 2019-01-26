@@ -15,9 +15,11 @@ import butterknife.OnCheckedChanged;
 public class SettingActivity extends AppCompatActivity implements SettingContract.View{
 
     private boolean isDailyChecked;
+    private boolean isReleaseChecked;
 
     @BindView(R.id.setting_layout) LinearLayout settingLayout;
     @BindView(R.id.switch_daily_reminder) Switch mSwitchDailyReminder;
+    @BindView(R.id.switch_release_reminder) Switch mSwitchReleaseReminder;
 
     SettingContract.Presenter mPresenter;
 
@@ -46,17 +48,42 @@ public class SettingActivity extends AppCompatActivity implements SettingContrac
         }
     }
 
+    @OnCheckedChanged(R.id.switch_release_reminder)
+    public void setReleaseReminder(boolean isChecked){
+        if(isChecked){
+            if(!isReleaseChecked){
+                mPresenter.turnOnReleaseAlarm();
+                showSnackbar(getString(R.string.snackbar_release_on));
+            }
+        } else {
+            if(isReleaseChecked){
+                mPresenter.turnOffReleaseAlarm();
+                showSnackbar(getString(R.string.snackbar_release_off));
+            }
+        }
+    }
+
     private void showSnackbar(String message){
         Snackbar.make(settingLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
-    public void setSwitch(boolean condition) {
+    public void setDailySwitch(boolean condition) {
         mSwitchDailyReminder.setChecked(condition);
     }
 
     @Override
-    public void setCurrentCondition(boolean condition) {
+    public void setDailyCondition(boolean condition) {
         isDailyChecked = condition;
+    }
+
+    @Override
+    public void setReleaseSwitch(boolean condition) {
+        mSwitchReleaseReminder.setChecked(condition);
+    }
+
+    @Override
+    public void setReleaseCondition(boolean condition) {
+        isReleaseChecked = condition;
     }
 }
