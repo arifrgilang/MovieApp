@@ -1,9 +1,13 @@
 package com.rz.movieapp.ui.activities.home;
 
+import android.support.v4.app.Fragment;
+
 import com.rz.movieapp.ui.fragments.favorite.FavoriteFragment;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
 import com.rz.movieapp.ui.fragments.search.SearchFragment;
 import com.rz.movieapp.ui.fragments.upcoming.UpcomingFragment;
+
+import java.util.HashMap;
 
 import javax.inject.Inject;
 

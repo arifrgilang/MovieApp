@@ -47,17 +47,22 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
         initAdapter();
         if (savedInstanceState != null){
             mList = savedInstanceState.getParcelableArrayList("mList");
-            setView(mList);
-            Log.d("logloglog", "onActivityCreated: notnull");
+            if(mList == null){
+                requestData();
+            } else {
+                setView(mList);
+            }
+            Log.d("nowPlaying", "notnull");
         } else {
             requestData();
-            Log.d("logloglog", "onActivityCreated: null");
+            Log.d("nowPlaying", "null");
         }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.d("nowPlaying", "state saved");
         outState.putParcelableArrayList("mList", mList);
     }
 
@@ -84,6 +89,8 @@ public class NowPlayingFragment extends DaggerFragment implements NowPlayingCont
     @Override
     public void setView(ArrayList<MovieObject> results) {
         mList = results;
-        mRvAdapter.setData(mList);
+        if(mList != null){
+            mRvAdapter.setData(mList);
+        }
     }
 }

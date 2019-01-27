@@ -52,17 +52,23 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
         initAdapter();
         if (savedInstanceState != null){
             mList = savedInstanceState.getParcelableArrayList("mList");
-            setView(mList);
-            Log.d("logloglog", "onActivityCreated: notnull upcoming");
+            if(mList == null){
+                requestData();
+            } else {
+                setView(mList);
+            }
+
+            Log.d("upcoming", "notnull");
         } else {
             requestData();
-            Log.d("logloglog", "onActivityCreated: null upcoming");
+            Log.d("upcoming", "null");
         }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.d("upcoming", "state saved");
         outState.putParcelableArrayList("mList", mList);
     }
 
@@ -84,6 +90,8 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
     @Override
     public void setView(ArrayList<MovieObject> results) {
         mList = results;
-        mRvAdapter.setData(mList);
+        if(mList != null){
+            mRvAdapter.setData(mList);
+        }
     }
 }
