@@ -19,6 +19,8 @@ import com.rz.movieapp.ui.fragments.favorite.FavoriteFragment;
 import com.rz.movieapp.ui.fragments.nowplaying.NowPlayingFragment;
 import com.rz.movieapp.ui.fragments.search.SearchFragment;
 import com.rz.movieapp.ui.fragments.upcoming.UpcomingFragment;
+import com.rz.movieapp.utils.viewpager.CustomViewPager;
+import com.rz.movieapp.utils.viewpager.CustomViewPagerAdapter;
 
 import javax.inject.Inject;
 
@@ -30,8 +32,8 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
 
     @Inject HomeContract.Presenter presenter;
     @BindView(R.id.bottom_nav) BottomNavigationView bottomNavigationView;
-    String currentFragment = null;
-    String currentTitle = null;
+    @BindView(R.id.viewpager1) CustomViewPager viewPager;
+    CustomViewPagerAdapter adapter;
     Fragment current;
 
     @Override
@@ -42,26 +44,13 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
 
         initBottomNav();
 
-        if (savedInstanceState != null){
-            currentTitle = savedInstanceState.getString("currentTitle");
-            currentFragment = savedInstanceState.getString("currentFragment");
-            current = getSupportFragmentManager().getFragment(savedInstanceState, "keyf");
-            setFragment(current);
-        } else {
-            if(currentFragment == null && currentTitle == null){
-                currentTitle = getString(R.string.now_playing);
-                currentFragment = HomePresenter.F_NOW_PLAYING;
-                changeFragment();
-            }
-        }
-    }
+        adapter = new CustomViewPagerAdapter(HomeActivity.this.getSupportFragmentManager());
+        adapter.addFragment(new NowPlayingFragment(), getString(R.string.now_playing));
+        adapter.addFragment(new UpcomingFragment(), getString(R.string.upcoming));
+        adapter.addFragment(new FavoriteFragment(), getString(R.string.favorite_movies));
+        adapter.addFragment(new SearchFragment(), getString(R.string.search));
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("currentTitle", currentTitle);
-        outState.putString("currentFragment", currentFragment);
-        getSupportFragmentManager().putFragment(outState, "keyf", current);
+        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -89,11 +78,11 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
     @Override
     public void setFragment(Fragment fragment) {
         current = fragment;
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id.home_frame_layout, current)
-                .commit();
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                .replace(R.id.home_frame_layout, current)
+//                .commit();
     }
 
     @Override
@@ -104,32 +93,20 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.menu_nowplaying:
-                        if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof NowPlayingFragment)){
-                            currentTitle = getString(R.string.now_playing);
-                            currentFragment = HomePresenter.F_NOW_PLAYING;
-                            changeFragment();
-                        }
+                        viewPager.setCurrentItem(0);
+//                        setActionBarTitle(adapter.getPageTitle(0).toString());
                         return true;
                     case R.id.menu_upcoming:
-                        if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof UpcomingFragment)) {
-                            currentFragment = HomePresenter.F_UPCOMING;
-                            currentTitle = getString(R.string.upcoming);
-                            changeFragment();
-                        }
+                        viewPager.setCurrentItem(1);
+//                        setActionBarTitle(adapter.getPageTitle(1).toString());
                         return true;
                     case R.id.menu_search:
-                        if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof SearchFragment)) {
-                            currentFragment = HomePresenter.F_SEARCH;
-                            currentTitle = getString(R.string.search);
-                            changeFragment();
-                        }
+                        viewPager.setCurrentItem(3);
+//                        setActionBarTitle(adapter.getPageTitle(3).toString());
                         return true;
                     case R.id.menu_favorite:
-                        if(!(getSupportFragmentManager().findFragmentById(R.id.home_frame_layout) instanceof FavoriteFragment)) {
-                            currentFragment = HomePresenter.F_FAVORITE;
-                            currentTitle = getString(R.string.favorite_movies);
-                            changeFragment();
-                        }
+                        viewPager.setCurrentItem(2);
+//                        setActionBarTitle(adapter.getPageTitle(2).toString());
                         return true;
                 }
                 return false;
@@ -143,10 +120,5 @@ public class HomeActivity extends DaggerAppCompatActivity implements HomeContrac
         if(getSupportActionBar() != null){
             getSupportActionBar().setTitle(title);
         }
-    }
-
-    private void changeFragment(){
-        setActionBarTitle(currentTitle);
-        presenter.changeFragment(currentFragment);
     }
 }

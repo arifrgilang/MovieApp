@@ -16,10 +16,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.mikhaellopez.circularimageview.CircularImageView
+            <ImageView
                 android:id="@+id/detail_img"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/vertical_default"/>
 
@@ -44,7 +44,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/horizontal_default"
+                android:layout_marginLeft="@dimen/horizontal_default"
+                android:layout_marginRight="@dimen/horizontal_default"
+                android:layout_marginBottom="@dimen/separator"
                 android:background="@color/divider"/>
 
             <LinearLayout
@@ -109,7 +111,10 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/horizontal_default"
+                android:layout_marginLeft="@dimen/horizontal_default"
+                android:layout_marginRight="@dimen/horizontal_default"
+                android:layout_marginTop="@dimen/separator"
+                android:layout_marginBottom="@dimen/vertical_default"
                 android:background="@color/divider"/>
 
             <TextView
@@ -120,7 +125,7 @@
                 android:textSize="16sp"
                 android:layout_marginStart="@dimen/horizontal_default"
                 android:layout_marginEnd="@dimen/horizontal_default"
-                android:layout_marginBottom="@dimen/vertical_default"/>
+                android:layout_marginBottom="@dimen/separator"/>
 
             <TextView
                 android:id="@+id/detail_overview"

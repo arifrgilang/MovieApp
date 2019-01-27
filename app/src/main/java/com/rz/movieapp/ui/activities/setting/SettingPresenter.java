@@ -55,7 +55,7 @@ public class SettingPresenter implements SettingContract.Presenter {
     @Override
     public void turnOnReleaseAlarm() {
         putBoolToSharedPreferences(RELEASE_REMINDER,true);
-        String time = "17:00";
+        String time = "08:00";
         view.setReleaseCondition(true);
         releaseReminder.setReleaseReminder(ctx, time);
     }

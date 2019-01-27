@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class DetailMovieActivity extends DaggerAppCompatActivity implements Deta
 
     @BindView(R.id.detail_layout) RelativeLayout mLayout;
     @BindView(R.id.detail_loading) RelativeLayout mLoadingView;
-    @BindView(R.id.detail_img) CircularImageView mImg;
+    @BindView(R.id.detail_img) ImageView mImg;
     @BindView(R.id.detail_title) TextView mTitle;
     @BindView(R.id.detail_release_date) TextView mReleaseDate;
     @BindView(R.id.detail_rating) TextView mRating;

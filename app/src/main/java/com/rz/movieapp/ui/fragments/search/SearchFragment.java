@@ -73,7 +73,11 @@ public class SearchFragment extends DaggerFragment implements SearchContract.Vie
         if (savedInstanceState != null){
             mList = savedInstanceState.getParcelableArrayList("mList");
             query = savedInstanceState.getString("query");
-            setView(mList);
+            if(mList == null){
+                requestData("a");
+            } else {
+                setView(mList);
+            }
             mSearchEditText.setText(query);
         } else {
             if (query == null){
@@ -86,7 +90,10 @@ public class SearchFragment extends DaggerFragment implements SearchContract.Vie
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        String text = mSearchEditText.getText().toString();
+        String text = "";
+        if (mSearchEditText != null){
+            text = mSearchEditText.getText().toString();
+        }
         if(text.isEmpty()){
             text = "a";
         }
@@ -117,7 +124,9 @@ public class SearchFragment extends DaggerFragment implements SearchContract.Vie
     @Override
     public void setView(ArrayList<MovieObject> results) {
         mList = results;
-        mRvAdapter.setData(mList);
+        if(mList != null){
+            mRvAdapter.setData(mList);
+        }
     }
 
     @OnClick(R.id.bt_search)
